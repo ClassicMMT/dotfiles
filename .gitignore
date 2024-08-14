@@ -1,1 +1,4 @@
 .DS_Store
+.config/fish
+.config/iterm2
+.config/rstudio
