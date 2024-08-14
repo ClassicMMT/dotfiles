@@ -14,27 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { import = "peter.plugins" },
     { import = "peter.plugins.lsp"},
-    -- {
-    --     "iamcco/markdown-preview.nvim",
-    --     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    --     ft = { "markdown" },
-    --     build = function() vim.fn["mkdp#util#install"]() end,
-    -- }
-    
-    -- {
-    --     "iamcco/markdown-preview.nvim",
-    --     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    --     ft = { "markdown" },
-    --     build = function()
-    --         -- Install the plugin
-    --         vim.fn["mkdp#util#install"]()
-    --
-    --         -- Navigate to the plugin's app directory and install the dependencies
-    --         vim.cmd("!cd " .. vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim/app && npm install")
-    --     end,
-    -- }
-
-    
     {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
