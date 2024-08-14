@@ -1,3 +1,4 @@
+-- space bar leader key
 vim.g.mapleader = " "
 
 local keymap = vim.keymap -- for conciseness
