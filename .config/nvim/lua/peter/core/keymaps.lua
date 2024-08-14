@@ -4,7 +4,7 @@ local keymap = vim.keymap -- for conciseness
 
 keymap.set("i", "jk", "<ESC>",  {desc = "Exit insert mode with jk"})
 
--- doesn't work for me :(
+-- Clear highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>", {desc = "Clear search highlights"})
 
 -- incremenet/decrement numbers
@@ -24,3 +24,5 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<cr>", { desc = "Open current buffer in new tab" })
 
+-- markdown preview
+keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>",  {desc = "Preview markdown in browser"})
