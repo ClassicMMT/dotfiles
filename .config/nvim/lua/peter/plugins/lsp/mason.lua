@@ -43,8 +43,10 @@ return {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
         "isort", -- python formatter
-        -- "black", -- python formatter
+        "black", -- python formatter
         "pylint",
+        "sqlfluff",
+        "ruff",
       },
     })
   end,

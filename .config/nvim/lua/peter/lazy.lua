@@ -1,43 +1,27 @@
 local lazypath = vim.fn.stdpath("data") .. "lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { import = "peter.plugins" },
-    { import = "peter.plugins.lsp"},
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function()
-            -- Navigate to the plugin's app directory and install dependencies
-            local install_path = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim/app"
+  { import = "peter.plugins" },
+  { import = "peter.plugins.lsp" },
+  { import = "peter.plugins.markdown-preview" },
+}, {
+  change_detection = {
+    notify = false,
+  },
 
-            -- Ensure npm is available, then install dependencies
-            vim.fn.system({'npm', 'install', '--prefix', install_path})
-
-            -- Install tslib globally
-            vim.fn.system({'npm', 'install', '-g', 'tslib'})
-        end,
-    }
-},
-
-{
-    change_detection = {
-        notify = false
-    },
-
-    checker = {
-        enabled = true,
-        notify = false,
-    },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
 })

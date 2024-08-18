@@ -20,4 +20,9 @@ unset __conda_setup
 export PS1="~ "
 
 alias nv="nvim"
-alias vmr="ssh -L 8787:localhost:8787 porl557@fosstatsprd02.its.auckland.ac.nz"
+alias vmr2="ssh -L 8787:localhost:8787 porl557@fosstatsprd02.its.auckland.ac.nz"
+alias vmr3="ssh -L 8787:localhost:8787 porl557@fosstatsprd03.its.auckland.ac.nz"
+alias vmr4="ssh -L 8787:localhost:8787 porl557@fosstatsprd02.its.auckland.ac.nz"
+
+export VISUAL="nvim"
+export EDITOR="nvim"
