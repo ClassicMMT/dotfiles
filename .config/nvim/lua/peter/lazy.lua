@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   { import = "peter.plugins" },
   { import = "peter.plugins.lsp" },
-  { import = "peter.plugins.markdown-preview" },
+  --  { import = "peter.plugins.markdown-preview" },
 }, {
   change_detection = {
     notify = false,

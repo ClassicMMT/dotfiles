@@ -1,4 +1,3 @@
-
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
@@ -90,7 +89,7 @@ return {
         -- configure graphql language server
         lspconfig["graphql"].setup({
           capabilities = capabilities,
-          filetypes = { "graphql",  },
+          filetypes = { "graphql" },
         })
       end,
       ["lua_ls"] = function()
@@ -108,6 +107,14 @@ return {
               },
             },
           },
+        })
+      end,
+      ["r_language_server"] = function()
+        -- configure R language server
+        lspconfig["r_language_server"].setup({
+          cmd = { "R", "--no-save", "--no-restore", "-e", "languageserver::run()" },
+          capabilities = capabilities,
+          filetypes = { "r", "rmd" },
         })
       end,
     })
