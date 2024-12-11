@@ -113,6 +113,26 @@ return {
         lspconfig["pyright"].setup({
           command = { "pyright-langserver", "--stdio" },
           capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            local lsp = vim.lsp
+            -- Ensure signature is enabled
+            lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" })
+
+            -- Optionally, trigger signature help automatically when the cursor is in a function call
+            vim.api.nvim_create_autocmd("CursorMovedI", {
+              buffer = bufnr,
+              callback = function()
+                -- Check if cursor is inside parentheses (e.g., function call)
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                local line_text = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
+
+                -- Simple check: if the cursor is between opening and closing parentheses
+                if string.match(line_text, "%b()") then
+                  vim.lsp.buf.signature_help()
+                end
+              end,
+            })
+          end,
           -- on_attach = function(client, bufnr)
           --   local lsp = vim.lsp
           --   -- ensure signature is enabled
