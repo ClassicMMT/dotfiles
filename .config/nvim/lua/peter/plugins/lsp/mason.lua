@@ -29,8 +29,9 @@ return {
       ensure_installed = {
         "lua_ls",
         "graphql",
-        "pyright",
         "r_language_server", -- R
+        -- "ruff",
+        "pyright",
         "sqlls", -- SQL
         "jsonls", -- json
         "marksman", -- markdown
@@ -46,7 +47,6 @@ return {
         "black", -- python formatter
         "pylint",
         "sqlfluff",
-        "ruff",
       },
     })
   end,

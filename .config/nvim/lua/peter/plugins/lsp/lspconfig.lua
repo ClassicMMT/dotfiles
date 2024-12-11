@@ -109,6 +109,38 @@ return {
           },
         })
       end,
+      ["pyright"] = function()
+        lspconfig["pyright"].setup({
+          command = { "pyright-langserver", "--stdio" },
+          capabilities = capabilities,
+          filetypes = { "python" },
+          -- this is the only working options for me
+          -- root_dir = function()
+          --   -- returns the directory of the file opened by neovim
+          --   return vim.fn.expand("%:p:h")
+          -- end,
+          -- root_dir = vim.fn.getcwd() or lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt"),
+          -- root_dir = vim.fn.getcwd(),
+          root_dir = function()
+            local root =
+              lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt")
+            if root then
+              return root
+            else
+              return vim.fn.expand("%:p:h")
+            end
+          end,
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        })
+      end,
       ["r_language_server"] = function()
         -- configure R language server
         lspconfig["r_language_server"].setup({
