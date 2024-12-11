@@ -3,6 +3,7 @@
 \*.csv
 
 # GIT
-#.git
-#.gitignore
+.git
+.gitignore
 
+README.md
