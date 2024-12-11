@@ -113,17 +113,23 @@ return {
         lspconfig["pyright"].setup({
           command = { "pyright-langserver", "--stdio" },
           capabilities = capabilities,
+          -- on_attach = function(client, bufnr)
+          --   local lsp = vim.lsp
+          --   -- ensure signature is enabled
+          --   lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" })
+          -- end,
           filetypes = { "python" },
-          -- this is the only working options for me
+          -- THIS OPTION WORKS BUT WILL NOT FIND THE CORRECT DIRECTORY IN A PROJECT
           -- root_dir = function()
           --   -- returns the directory of the file opened by neovim
           --   return vim.fn.expand("%:p:h")
           -- end,
           -- root_dir = vim.fn.getcwd() or lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt"),
           -- root_dir = vim.fn.getcwd(),
+          -- THIS OPTIONS WORKS WELL
           root_dir = function()
             local root =
-              lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt")
+              lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt")()
             if root then
               return root
             else
