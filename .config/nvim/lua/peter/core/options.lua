@@ -50,20 +50,30 @@ opt.scrolloff = 8 -- minimum number of lines above and below cursor when scrolli
 opt.sidescrolloff = 8 -- minimum number of columns
 
 -- python formatting
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-    pattern = "*.py",
-    callback = function()
-        opt.textwidth = 79
-        opt.colorcolumn = "79"
-    end
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.py",
+  callback = function()
+    opt.textwidth = 79
+    opt.colorcolumn = "79"
+  end,
 })
 
 -- R formatting
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-    pattern = {"*.R", "*.Rmd"},
-    callback = function()
-        opt.tabstop = 2
-        opt.shiftwidth = 2
-        opt.softtabstop = 2
-    end
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.R", "*.Rmd" },
+  callback = function()
+    opt.tabstop = 2
+    opt.shiftwidth = 2
+    opt.softtabstop = 2
+  end,
+})
+
+-- Lua formatting
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.lua" },
+  callback = function()
+    opt.tabstop = 2
+    opt.shiftwidth = 2
+    opt.softtabstop = 2
+  end,
 })
