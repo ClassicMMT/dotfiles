@@ -28,7 +28,7 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "lua_ls",
-        "graphql",
+        -- "graphql",
         "r_language_server", -- R
         -- "ruff",
         "pyright",
