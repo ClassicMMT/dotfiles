@@ -33,13 +33,13 @@ require("lazy").setup({
       { "<leader>mt", "<cmd>MaximizerToggle<CR>", desc = "Maximizer" .. " Split maximiser toggle" },
     },
   },
-  -- {
-  --   "kylechui/nvim-surround",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   version = "*",
-  --   config = true,
-  -- },
 
+  {
+    "kylechui/nvim-surround",
+    event = { "BufReadPre", "BufNewFile" },
+    version = "*",
+    config = true,
+  },
 }, lazy_config)
 
 -- load theme
@@ -52,22 +52,3 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
-
-
--- CUSTOM
-
-local options = vim.opt
-
--- scrolling
-options.scrolloff = 8
-options.sidescrolloff = 8
-
--- wait until timeout
-options.timeoutlen = 250
-
--- relative number
-options.relativenumber = true
-options.number = true
-
--- make "-" to be considered part of a word
-options.iskeyword:append("-")
