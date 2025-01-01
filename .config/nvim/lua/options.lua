@@ -1,4 +1,20 @@
 require "nvchad.options"
 
-local o = vim.o
-o.cursorlineopt ='both' -- to enable cursorline!
+local options = vim.opt
+options.cursorlineopt = "both" -- to enable cursorline!
+
+-- CUSTOM
+
+-- scrolling
+options.scrolloff = 8
+options.sidescrolloff = 8
+
+-- wait until timeout
+options.timeoutlen = 250
+
+-- relative number
+options.relativenumber = true
+options.number = true
+
+-- make "-" to be considered part of a word
+options.iskeyword:append "-"
