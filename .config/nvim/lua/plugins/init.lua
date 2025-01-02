@@ -17,9 +17,15 @@ return {
         event = "CmdlineEnter",
         config = function()
           local cmp = require "cmp"
+          local mapping = cmp.mapping
 
           cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline(), -- custom mappings table goes here
+            mapping = mapping.preset.cmdline {
+              ["<CR>"] = mapping.confirm { select = true },
+              ["<C-j>"] = mapping(mapping.select_next_item(), { "i", "c" }),
+              ["<C-k>"] = mapping(mapping.select_prev_item(), { "i", "c" }),
+              ["<C-e>"] = mapping.abort(), -- close completion window
+            },
             sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
             matching = { disallow_symbol_nonprefix_matching = false },
           })
