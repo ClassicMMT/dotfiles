@@ -1,14 +1,9 @@
 -- require "nvchad.mappings"
 
 local map = vim.keymap.set
-
 -- basic
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-map("i", "<M-BS>", " <ESC>db") -- option backspace
-map("n", "<M-BS>", "db") -- option backspace
-map("i", "<C-BS>", " <ESC>d^") -- like command backspace
-map("n", "<C-BS>", "d^") -- like command backspace
 
 -- Modified nvchad.mappings
 map("i", "<C-h>", "<Left>", { desc = "move left" })
@@ -124,3 +119,40 @@ map({ "n", "i", "v" }, "<leader>gb", function()
   local filepath = vim.fn.expand "%:p" -- get path of current buffer
   vim.fn.setreg("+", filepath) -- write to clipboard
 end, { desc = "Path copy to clipboard" })
+
+-- vscode-like shortcuts
+map("i", "<C-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "<BS>"
+  else
+    return "<ESC>d0xi"
+  end
+end, { expr = true, noremap = true })
+
+map("n", "<C-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "X"
+  else
+    return "d0x"
+  end
+end, { expr = true, noremap = true })
+
+map("i", "<M-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "<BS>"
+  else
+    return "<ESC>dbxi"
+  end
+end, { expr = true, noremap = true })
+
+map("n", "<M-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "X"
+  else
+    return "dbx"
+  end
+end, { expr = true, noremap = true })
