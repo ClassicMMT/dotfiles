@@ -1,10 +1,14 @@
 -- require "nvchad.mappings"
 
-
 local map = vim.keymap.set
 
+-- basic
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+map("i", "<M-BS>", " <ESC>db") -- option backspace
+map("n", "<M-BS>", "db") -- option backspace
+map("i", "<C-BS>", " <ESC>d^") -- like command backspace
+map("n", "<C-BS>", "d^") -- like command backspace
 
 -- Modified nvchad.mappings
 map("i", "<C-h>", "<Left>", { desc = "move left" })
@@ -57,7 +61,6 @@ map("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file 
 map("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
 map("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
 
-
 -- telescope
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find recent files" })
@@ -83,7 +86,6 @@ end, { desc = "telescope nvchad themes" })
 -- git
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "git commits" })
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "git status" })
-
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
@@ -117,10 +119,8 @@ map("n", "<leader>wk", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 --   vim.cmd("WhichKey " .. vim.fn.input "WhichKey: ")
 -- end, { desc = "whichkey query lookup" })
 
-
 -- get buffer path
 map({ "n", "i", "v" }, "<leader>gb", function()
-  local filepath = vim.fn.expand("%:p") -- get path of current buffer
-  vim.fn.setreg("+", filepath)          -- write to clipboard
-end, { desc = "Path copy to clipboard" }
-)
+  local filepath = vim.fn.expand "%:p" -- get path of current buffer
+  vim.fn.setreg("+", filepath) -- write to clipboard
+end, { desc = "Path copy to clipboard" })
