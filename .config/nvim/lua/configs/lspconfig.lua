@@ -12,7 +12,6 @@ local servers = {
   "ts_ls",
 }
 
-
 local nvlsp = require "nvchad.configs.lspconfig"
 local map = vim.keymap.set
 
@@ -40,8 +39,6 @@ nvlsp.on_attach = function(_, bufnr)
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
 end
 
-
-
 -- lsps with default config
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -51,13 +48,34 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-
 -- configuring r language server
-lspconfig.r_language_server.setup({
+lspconfig.r_language_server.setup {
   cmd = { "R", "--no-save", "--no-restore", "-e", "languageserver::run()" },
   filetypes = { "r", "rmd" },
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
+}
 
-})
+-- lspconfig.emmet_ls.setup {
+--   filetypes = {
+--     "css",
+--     "eruby",
+--     "html",
+--     "javascript",
+--     "javascriptreact",
+--     "less",
+--     "sass",
+--     "scss",
+--     "svelte",
+--     "typescriptreact",
+--     "vue",
+--   },
+--   init_options = {
+--     html = {
+--       options = {
+--         ["bem.enabled"] = true,
+--       },
+--     },
+--   },
+-- }
