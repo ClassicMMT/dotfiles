@@ -1,7 +1,7 @@
 require "nvchad.options"
 
 local options = vim.opt
-options.cursorlineopt = "both" -- to enable cursorline!
+options.cursorlineopt = "both"
 
 -- CUSTOM
 
