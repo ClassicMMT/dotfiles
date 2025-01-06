@@ -10,6 +10,7 @@ local servers = {
   -- "r_language_server",
   "pyright",
   "ts_ls",
+  "clangd",
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
