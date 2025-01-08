@@ -40,6 +40,16 @@ require("lazy").setup({
     version = "*",
     config = true,
   },
+
+  {
+    "ggandor/leap.nvim",
+    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "tpope/vim-repeat" },
+    config = function()
+      require("leap").add_default_mappings()
+    end,
+  },
 }, lazy_config)
 
 -- load theme
