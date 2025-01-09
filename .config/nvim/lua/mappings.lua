@@ -95,15 +95,15 @@ map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 -- end, { desc = "terminal new vertical term" })
 
 -- toggleable
-map({ "n", "t" }, "tv", function()
+map({ "n", "t" }, "<leader>tv", function()
   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
 end, { desc = "terminal toggleable vertical term" })
 
-map({ "n", "t" }, "th", function()
+map({ "n", "t" }, "<leader>th", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
 
-map({ "n", "t" }, "tf", function()
+map({ "n", "t" }, "<leader>tf", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "terminal toggle floating term" })
 
