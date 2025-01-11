@@ -5,6 +5,21 @@
 ---@type ChadrcConfig
 local M = {}
 
+M.mason = {
+  cmd = true,
+  pkgs = {
+    "mypy",
+    "debugpy",
+  },
+}
+
+M.ui = {
+  -- disable tabufline
+  tabufline = {
+    enabled = false,
+  },
+}
+
 M.base46 = {
   theme = "onedark",
 
@@ -12,13 +27,6 @@ M.base46 = {
   -- 	Comment = { italic = true },
   -- 	["@comment"] = { italic = true },
   -- },
-}
-
-M.ui = {
-  -- disable tabufline
-  tabufline = {
-    enabled = false
-  },
 }
 
 return M
