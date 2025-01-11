@@ -11,6 +11,7 @@ local servers = {
   "pyright",
   "ts_ls",
   "clangd",
+  "ruff",
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
