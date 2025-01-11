@@ -31,20 +31,20 @@ end, { desc = "general format file" })
 -- global lsp mappings
 map("n", "<leader>ld", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
--- tabufline
-map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
-
-map("n", "<C-t>", function()
-  require("nvchad.tabufline").next()
-end, { desc = "buffer goto next" })
-
-map("n", "<C-p>", function()
-  require("nvchad.tabufline").prev()
-end, { desc = "buffer goto prev" })
-
-map("n", "<leader>xx", function()
-  require("nvchad.tabufline").close_buffer()
-end, { desc = "buffer close" })
+-- tabufline - WARNING: TABUFLINE IS DISABLED
+-- map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
+--
+-- map("n", "<C-t>", function()
+--   require("nvchad.tabufline").next()
+-- end, { desc = "buffer goto next" })
+--
+-- map("n", "<C-p>", function()
+--   require("nvchad.tabufline").prev()
+-- end, { desc = "buffer goto prev" })
+--
+-- map("n", "<leader>xx", function()
+--   require("nvchad.tabufline").close_buffer()
+-- end, { desc = "buffer close" })
 
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
