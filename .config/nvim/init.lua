@@ -25,31 +25,7 @@ require("lazy").setup({
 
   { import = "plugins" },
 
-  ---------- CUSTOM
-  -- { "stevearc/dressing.nvim", event = "VeryLazy" },
-  {
-    "szw/vim-maximizer",
-    keys = {
-      { "<leader>mt", "<cmd>MaximizerToggle<CR>", desc = "Maximizer" .. " Split maximiser toggle" },
-    },
-  },
-
-  {
-    "kylechui/nvim-surround",
-    event = { "BufReadPre", "BufNewFile" },
-    version = "*",
-    config = true,
-  },
-
-  {
-    "ggandor/leap.nvim",
-    lazy = false,
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "tpope/vim-repeat" },
-    config = function()
-      require("leap").add_default_mappings()
-    end,
-  },
+  -- ADD CUSTOM PLUGINS HERE OR IN THE PLUGINS FOLDER
 }, lazy_config)
 
 -- load theme
