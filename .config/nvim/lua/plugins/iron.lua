@@ -2,16 +2,16 @@ return {
   "Vigemus/iron.nvim",
   cmd = { "IronRepl" },
   keys = {
-    { "<leader>rs", "<cmd>IronRepl<CR>",    desc = "Start iron" },
+    { "<leader>rs", "<cmd>IronRepl<CR>", desc = "Start iron" },
     { "<leader>rr", "<cmd>IronRestart<CR>", desc = "Restart iron" },
-    { "<leader>rf", "<cmd>IronFocus<CR>",   desc = "Focus iron" },
-    { "<leader>rh", "<cmd>IronHide<CR>",    desc = "Hide iron" },
+    { "<leader>rf", "<cmd>IronFocus<CR>", desc = "Focus iron" },
+    { "<leader>rh", "<cmd>IronHide<CR>", desc = "Hide iron" },
   },
   config = function()
-    local iron = require("iron.core")
-    local view = require("iron.view")
+    local iron = require "iron.core"
+    local view = require "iron.view"
 
-    iron.setup({
+    iron.setup {
       config = {
         scratch_repl = true,
         repl_open_cmd = view.split.vertical.botright(0.5),
@@ -19,8 +19,10 @@ return {
         --   python = "python"
         -- },
         repl_definition = {
+          sh = { "zsh" },
           python = {
             command = { "python" },
+            format = require("iron.fts.common").bracketed_paste,
           },
         },
       },
@@ -39,13 +41,11 @@ return {
         interrupt = "<leader>s<leader>",
         exit = "<leader>sq",
         clear = "<leader>cl",
-
       },
       highlight = {
         bold = true,
       },
       ignore_blank_lines = true,
-
-    })
+    }
   end,
 }
