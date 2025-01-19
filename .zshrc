@@ -54,8 +54,10 @@ setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
 # history bindings
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
+# bindkey "^[[A" history-search-backward
+# bindkey "^[[B" history-search-forward
+bindkey "^k" history-search-backward
+bindkey "^j" history-search-forward
 
 # autosuggestions -- install by running: brew install zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
