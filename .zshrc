@@ -69,4 +69,6 @@ HOMEBREW_NO_AUTO_UPDATE=1
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Better ls -- install by running: brew install eza
-alias lse="eza --color=always -l"
+# alias lse="eza --color=always -l"
+
+export PATH="/Applications/Alacritty.app/Contents/MacOS:$PATH"
