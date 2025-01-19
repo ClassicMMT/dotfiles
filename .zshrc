@@ -5,10 +5,12 @@ export PS1="~ "
 
 # Basic aliases
 alias nv="nvim"
-alias vmr2="ssh -L 8787:localhost:8787 porl557@fosstatsprd02.its.auckland.ac.nz"
-alias vmr3="ssh -L 8787:localhost:8787 porl557@fosstatsprd03.its.auckland.ac.nz"
-alias vmr4="ssh -L 8787:localhost:8787 porl557@fosstatsprd02.its.auckland.ac.nz"
 
+# Conda aliases
+alias cona="conda activate"
+alias cond="conda deactivate"
+
+# Editors
 export VISUAL="nvim"
 export EDITOR="nvim"
 
@@ -23,10 +25,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
-
-
-
+# Conda
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -46,7 +45,7 @@ unset __conda_setup
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
-# history setup
+# History setup
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000
 HISTSIZE=999
@@ -54,7 +53,6 @@ setopt share_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
-
 # history bindings
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
@@ -62,11 +60,12 @@ bindkey "^[[B" history-search-forward
 # autosuggestions -- install by running: brew install zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# silence homebrew
-HOMEBREW_NO_AUTO_UPDATE=1
-
 # Syntax highlighting -- install by running: brew install zsh-syntax-highlighting
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Homebrew
+# silence homebrew
+HOMEBREW_NO_AUTO_UPDATE=1
 
 # Better ls -- install by running: brew install eza
 # alias lse="eza --color=always -l"
