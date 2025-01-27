@@ -4,6 +4,7 @@ return {
     "nvimtools/none-ls-extras.nvim",
     "jayp0521/mason-null-ls.nvim",
   },
+  event = { "BufReadPre", "BufNewfile", "BufEnter" },
   ft = { "python" },
   config = function()
     require("mason-null-ls").setup {
@@ -32,6 +33,19 @@ return {
       null_ls.builtins.formatting.shfmt.with { args = { "-i", "4" } },
       null_ls.builtins.formatting.black,
       null_ls.builtins.diagnostics.mypy.with {
+        args = function(params)
+          return {
+            "--hide-error-codes",
+            "--hide-error-context",
+            "--no-color-output",
+            "--show-absolute-path",
+            "--show-column-numbers",
+            "--show-error-codes",
+            "--no-error-summary",
+            "--no-pretty",
+            params.temp_path,
+          }
+        end,
         extra_args = function()
           local virtual = os.getenv "VIRTUAL_ENV" or os.getenv "CONDA_PREFIX" or "/usr"
           return { "--python-executable", virtual .. "/bin/python3" }
