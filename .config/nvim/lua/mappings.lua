@@ -2,7 +2,7 @@
 
 local map = vim.keymap.set
 -- basic
-map("n", ";", ":", { desc = "CMD enter command mode" })
+-- map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
 -- Modified nvchad.mappings
@@ -100,6 +100,10 @@ map({ "n", "t" }, "<leader>tv", function()
 end, { desc = "terminal toggleable vertical term" })
 
 map({ "n", "t" }, "<leader>th", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })
+
+map({ "n", "t" }, "<C-j>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
 
