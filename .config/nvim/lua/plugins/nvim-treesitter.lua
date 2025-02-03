@@ -25,7 +25,7 @@ return {
         init_selection = "<C-space>",
         node_incremental = "<C-space>",
         scope_incremental = false,
-        node_decremental = "<leader>nd",
+        node_decremental = "<BS>",
       },
     },
 
