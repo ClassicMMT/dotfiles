@@ -60,25 +60,27 @@ lspconfig.r_language_server.setup {
   capabilities = nvlsp.capabilities,
 }
 
--- lspconfig.emmet_ls.setup {
---   filetypes = {
---     "css",
---     "eruby",
---     "html",
---     "javascript",
---     "javascriptreact",
---     "less",
---     "sass",
---     "scss",
---     "svelte",
---     "typescriptreact",
---     "vue",
---   },
---   init_options = {
---     html = {
---       options = {
---         ["bem.enabled"] = true,
---       },
---     },
---   },
--- }
+lspconfig.emmet_ls.setup {
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "svelte",
+    "typescriptreact",
+    "vue",
+  },
+  init_options = {
+    html = {
+      options = {
+        ["bem.enabled"] = true,
+      },
+    },
+  },
+}
