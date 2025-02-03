@@ -18,3 +18,13 @@ options.number = true
 
 -- make "-" to be considered part of a word
 options.iskeyword:append "-"
+
+-- -- custom for html
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+--   pattern = "*.html",
+--   callback = function()
+--     options.tabstop = 4
+--     options.shiftwidth = 4
+--     options.softtabstop = 4
+--   end,
+-- })
