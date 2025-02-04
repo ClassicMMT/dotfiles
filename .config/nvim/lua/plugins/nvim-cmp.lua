@@ -43,6 +43,8 @@ return {
 
     require("luasnip.loaders.from_vscode").lazy_load()
 
+    luasnip.setup {}
+
     cmp.setup {
       completion = {
         completeopt = "menu,menuone,preview,noselect",
@@ -73,7 +75,7 @@ return {
 
       -- configure lspkind for vscode-like pictograms in completion menu
       formatting = {
-        fiels = { "menu", "abbr", "kind" },
+        fields = { "menu", "abbr", "kind" },
         format = lspkind.cmp_format {
           maxwidth = 50,
           ellipsis_char = "...",
