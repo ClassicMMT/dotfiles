@@ -12,6 +12,7 @@ return {
         "ruff",
         "prettier",
         "shfmt",
+        "prettierd",
       },
       automatic_installation = true,
     }
