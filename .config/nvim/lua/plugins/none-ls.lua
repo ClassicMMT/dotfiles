@@ -13,6 +13,7 @@ return {
         "prettier",
         "shfmt",
         "prettierd",
+        "tinymist",
       },
       automatic_installation = true,
     }

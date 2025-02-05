@@ -13,6 +13,7 @@ local servers = {
   "clangd",
   "ruff",
   -- "mypy",
+  "tinymist",
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
