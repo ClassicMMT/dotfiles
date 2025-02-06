@@ -40,8 +40,9 @@ return {
 
   {
     "max397574/better-escape.nvim",
+    event = "InsertEnter",
     config = function()
-      require("better-escape").setup()
+      require("better_escape").setup()
     end,
   },
 }
