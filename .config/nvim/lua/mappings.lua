@@ -119,7 +119,7 @@ map("n", "<leader>wk", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 -- end, { desc = "whichkey query lookup" })
 
 -- get buffer path
-map({ "n", "i", "v" }, "<leader>gb", function()
+map({ "n", "v" }, "<leader>gb", function()
   local filepath = vim.fn.expand "%:p" -- get path of current buffer
   vim.fn.setreg("+", filepath) -- write to clipboard
 end, { desc = "Path copy to clipboard" })
