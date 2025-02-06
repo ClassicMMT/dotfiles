@@ -160,3 +160,6 @@ map("n", "<M-BS>", function()
     return "dbx"
   end
 end, { expr = true, noremap = true })
+
+-- send cut values to black hole register
+map("n", "x", '"_x')
