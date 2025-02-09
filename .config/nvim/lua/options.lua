@@ -20,6 +20,9 @@ options.number = true
 -- make "-" to be considered part of a word
 options.iskeyword:append "-"
 
+-- enable breakindent
+options.breakindent = true
+
 -- -- custom for html
 -- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 --   pattern = "*.html",
