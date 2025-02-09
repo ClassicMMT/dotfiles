@@ -11,6 +11,17 @@ return {
   -- },
 
   {
+    "folke/twilight.nvim",
+    event = { "BufReadPre", "BufNewfile" },
+    opts = {},
+    -- runs twilight after loading
+    config = function(_, opts)
+      require("twilight").setup(opts)
+      vim.cmd "Twilight"
+    end,
+  },
+
+  {
     "szw/vim-maximizer",
     keys = {
       { "<leader>mt", "<cmd>MaximizerToggle<CR>", desc = "Maximizer" .. " Split maximiser toggle" },
