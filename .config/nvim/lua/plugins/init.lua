@@ -13,7 +13,12 @@ return {
   {
     "folke/twilight.nvim",
     event = { "BufReadPre", "BufNewfile" },
-    opts = {},
+    opts = {
+      dimming = {
+        alpha = 0.5,
+        color = { "Normal", "#ffffff" },
+      },
+    },
     -- runs twilight after loading
     config = function(_, opts)
       require("twilight").setup(opts)

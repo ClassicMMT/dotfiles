@@ -22,6 +22,7 @@ M.ui = {
 
 M.base46 = {
   theme = "onedark",
+  transparency = true,
 
   -- hl_override = {
   -- 	Comment = { italic = true },

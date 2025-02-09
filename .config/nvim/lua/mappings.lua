@@ -163,3 +163,10 @@ end, { expr = true, noremap = true })
 
 -- send cut values to black hole register
 map("n", "x", '"_x')
+
+-- transparency toggle
+map("n", "<leader>tt", function()
+  require("base46").toggle_transparency()
+end, { desc = "Toggle Transparency" })
+
+map("n", "<leader>tw", "<cmd>Twilight<CR>", { desc = "Toggle Twilight" })
