@@ -19,11 +19,11 @@ return {
         color = { "Normal", "#ffffff" },
       },
     },
-    -- runs twilight after loading
-    config = function(_, opts)
-      require("twilight").setup(opts)
-      vim.cmd "Twilight"
-    end,
+    -- -- runs twilight after loading
+    -- config = function(_, opts)
+    --   require("twilight").setup(opts)
+    --   vim.cmd "Twilight"
+    -- end,
   },
 
   {
