@@ -1,3 +1,6 @@
+# Zsh Autocompletion - install with: brew install zsh-autocomplete
+source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
 # Prompt character
 #export PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 #export PS1="$ " # "%~" gives the directory
@@ -73,3 +76,4 @@ HOMEBREW_NO_AUTO_UPDATE=1
 # alias lse="eza --color=always -l"
 
 export PATH="/Applications/Alacritty.app/Contents/MacOS:$PATH"
+
