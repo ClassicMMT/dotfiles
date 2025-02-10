@@ -25,7 +25,7 @@ config.window_padding = {
 	left = 10,
 	right = 10,
 }
--- config.allow_square_glyphs_to_overflow_width = "Never"
+config.allow_square_glyphs_to_overflow_width = "Never"
 
 -- coolnight theme from Josean Martinez (https://www.josean.com/posts/how-to-setup-wezterm-terminal)
 config.colors = {
