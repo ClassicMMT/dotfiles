@@ -20,6 +20,10 @@ return {
         dotfiles = false,
         custom = { ".DS_Store" },
       },
+      notify = {
+        -- diable information messages
+        threshold = vim.log.levels.WARN,
+      },
     }
   end,
 }
