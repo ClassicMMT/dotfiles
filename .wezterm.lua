@@ -16,7 +16,7 @@ config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
 
 -- Aesthetics
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.9
 config.macos_window_background_blur = 80
 config.line_height = 1.2
 config.window_padding = {
