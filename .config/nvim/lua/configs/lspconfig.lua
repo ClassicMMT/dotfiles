@@ -7,12 +7,10 @@ local lspconfig = require "lspconfig"
 local servers = {
   "html",
   "cssls",
-  -- "r_language_server",
   "pyright",
   "ts_ls",
   "clangd",
   "ruff",
-  -- "mypy",
   "tinymist",
 }
 
@@ -52,15 +50,6 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- configuring r language server
-lspconfig.r_language_server.setup {
-  cmd = { "R", "--no-save", "--no-restore", "-e", "languageserver::run()" },
-  filetypes = { "r", "rmd" },
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-}
-
 lspconfig.emmet_ls.setup {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
@@ -85,3 +74,13 @@ lspconfig.emmet_ls.setup {
     },
   },
 }
+
+-- NOT USED ANYMORE
+-- configuring r language server - might need to run "install.packages('languageserver')"
+-- lspconfig.r_language_server.setup {
+--   cmd = { "R", "--no-save", "--no-restore", "-e", "languageserver::run()" },
+--   filetypes = { "r", "rmd" },
+--   on_attach = nvlsp.on_attach,
+--   on_init = nvlsp.on_init,
+--   capabilities = nvlsp.capabilities,
+-- }

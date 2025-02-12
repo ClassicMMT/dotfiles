@@ -34,6 +34,7 @@ return {
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "rafamadriz/friendly-snippets", -- useful snippets
     "onsails/lspkind.nvim", -- vscode-like pictograms
+    "R-nvim/cmp-r", -- for r autocompletion
   },
 
   config = function()
@@ -71,6 +72,7 @@ return {
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
+        { name = "cmp_r" }, -- for R
       },
 
       -- configure lspkind for vscode-like pictograms in completion menu
@@ -79,6 +81,7 @@ return {
         format = lspkind.cmp_format {
           maxwidth = 50,
           ellipsis_char = "...",
+          -- mode = "symbol",
         },
         expandable_indicator = true,
       },

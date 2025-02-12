@@ -14,9 +14,11 @@ return {
       "markdown",
       "python",
       "r",
+      "rnoweb",
       "typescript",
       "vim",
       "vimdoc",
+      "yaml",
     },
 
     incremental_selection = {
