@@ -1,9 +1,100 @@
 -- require "nvchad.mappings"
 
 local map = vim.keymap.set
--- basic
+
+-- MY MAPPINGS (NvChad mappings follow this section) --
+
 -- map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+
+-- send cut values to black hole register
+map("n", "x", '"_x')
+
+-- Don't leave visual mode when changing indent
+map("x", ">", ">gv", { noremap = true })
+map("x", "<", "<gv", { noremap = true })
+
+-- Remap $ and ^
+map({ "n", "x" }, "H", "^")
+map({ "n", "x" }, "L", "$")
+
+-- Comment
+-- map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+-- map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
+map("n", "''", "gcc", { desc = "toggle comment", remap = true })
+map("v", "''", "gc", { desc = "toggle comment", remap = true })
+
+-- Allow ciw da( etc for other symbols
+local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?" }
+for _, char in ipairs(chars) do
+  for _, mode in ipairs { "x", "o" } do
+    vim.api.nvim_set_keymap(
+      mode,
+      "i" .. char,
+      string.format(":<C-u>silent! normal! f%sF%slvt%s<CR>", char, char, char),
+      { noremap = true, silent = true }
+    )
+    vim.api.nvim_set_keymap(
+      mode,
+      "a" .. char,
+      string.format(":<C-u>silent! normal! f%sF%svf%s<CR>", char, char, char),
+      { noremap = true, silent = true }
+    )
+  end
+end
+
+-- get buffer path
+map({ "n", "v" }, "<leader>gb", function()
+  local filepath = vim.fn.expand "%:p" -- get path of current buffer
+  vim.fn.setreg("+", filepath) -- write to clipboard
+end, { desc = "Path copy to clipboard" })
+
+-- vscode-like shortcuts
+map("i", "<C-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "<BS>"
+  else
+    return "<ESC>d0xi"
+  end
+end, { expr = true, noremap = true })
+
+map("n", "<C-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "X"
+  else
+    return "d0x"
+  end
+end, { expr = true, noremap = true })
+
+map("i", "<M-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "<BS>"
+  else
+    return "<ESC>dbxi"
+  end
+end, { expr = true, noremap = true })
+
+map("n", "<M-BS>", function()
+  -- like command backspace
+  if vim.fn.col "." == 1 then
+    return "X"
+  else
+    return "dbx"
+  end
+end, { expr = true, noremap = true })
+
+-- transparency toggle
+map("n", "<leader>tt", function()
+  require("base46").toggle_transparency()
+end, { desc = "Toggle Transparency" })
+
+-- toggle twilight
+map("n", "<leader>tw", "<cmd>Twilight<CR>", { desc = "Toggle Twilight" })
+
+-- END OF MY MAPPINGS --
 
 -- Modified nvchad.mappings
 map("i", "<C-h>", "<Left>", { desc = "move left" })
@@ -31,7 +122,7 @@ end, { desc = "general format file" })
 -- global lsp mappings
 map("n", "<leader>ld", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
--- tabufline - WARNING: TABUFLINE IS DISABLED
+-- tabufline
 -- map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 --
 -- map("n", "<C-t>", function()
@@ -45,10 +136,6 @@ map("n", "<leader>ld", vim.diagnostic.setloclist, { desc = "LSP diagnostic locli
 -- map("n", "<leader>xx", function()
 --   require("nvchad.tabufline").close_buffer()
 -- end, { desc = "buffer close" })
-
--- Comment
-map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 -- nvimtree
 map("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
@@ -117,56 +204,3 @@ map("n", "<leader>wk", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 -- map("n", "<leader>wK", function()
 --   vim.cmd("WhichKey " .. vim.fn.input "WhichKey: ")
 -- end, { desc = "whichkey query lookup" })
-
--- get buffer path
-map({ "n", "v" }, "<leader>gb", function()
-  local filepath = vim.fn.expand "%:p" -- get path of current buffer
-  vim.fn.setreg("+", filepath) -- write to clipboard
-end, { desc = "Path copy to clipboard" })
-
--- vscode-like shortcuts
-map("i", "<C-BS>", function()
-  -- like command backspace
-  if vim.fn.col "." == 1 then
-    return "<BS>"
-  else
-    return "<ESC>d0xi"
-  end
-end, { expr = true, noremap = true })
-
-map("n", "<C-BS>", function()
-  -- like command backspace
-  if vim.fn.col "." == 1 then
-    return "X"
-  else
-    return "d0x"
-  end
-end, { expr = true, noremap = true })
-
-map("i", "<M-BS>", function()
-  -- like command backspace
-  if vim.fn.col "." == 1 then
-    return "<BS>"
-  else
-    return "<ESC>dbxi"
-  end
-end, { expr = true, noremap = true })
-
-map("n", "<M-BS>", function()
-  -- like command backspace
-  if vim.fn.col "." == 1 then
-    return "X"
-  else
-    return "dbx"
-  end
-end, { expr = true, noremap = true })
-
--- send cut values to black hole register
-map("n", "x", '"_x')
-
--- transparency toggle
-map("n", "<leader>tt", function()
-  require("base46").toggle_transparency()
-end, { desc = "Toggle Transparency" })
-
-map("n", "<leader>tw", "<cmd>Twilight<CR>", { desc = "Toggle Twilight" })
