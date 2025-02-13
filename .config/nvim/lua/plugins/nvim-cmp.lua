@@ -73,6 +73,7 @@ return {
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
         { name = "cmp_r" }, -- for R
+        { name = "jedi" },
       },
 
       -- configure lspkind for vscode-like pictograms in completion menu
