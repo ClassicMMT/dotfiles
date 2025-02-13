@@ -85,6 +85,7 @@ M = {
       assignment_keymap = "++",
       pipe_keymap = "--",
       -- pipe_version = "magrittr",
+      pdfviewer = "",
     }
     if vim.env.R_AUTO_START == "true" then
       opts.auto_start = "on startup"
@@ -92,7 +93,14 @@ M = {
     end
     require("r").setup(opts)
     require("cmp_r").setup {}
-    -- vim.g.rout_follow_colorscheme = true
+
+    vim.g.R_filetypes = {
+      "r",
+      "rmd",
+      "rnoweb",
+      "quarto",
+      "rhelp",
+    }
   end,
 }
 
