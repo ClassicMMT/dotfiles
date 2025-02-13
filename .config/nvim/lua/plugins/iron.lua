@@ -22,6 +22,7 @@ return {
           sh = { "zsh" },
           python = {
             -- command = { "python" },
+            -- run "pip install ptpython" - otherwise, use the line above
             command = { "ptpython", "--vi" },
             format = require("iron.fts.common").bracketed_paste,
           },
