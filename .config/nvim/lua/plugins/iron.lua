@@ -21,7 +21,8 @@ return {
         repl_definition = {
           sh = { "zsh" },
           python = {
-            command = { "python" },
+            -- command = { "python" },
+            command = { "ptpython", "--vi" },
             format = require("iron.fts.common").bracketed_paste,
           },
         },
@@ -29,7 +30,7 @@ return {
 
       keymaps = {
         -- send_motion = "<leader>sc",
-        -- visual_send = "<leader>sc",
+        visual_send = "<leader>sc",
         send_file = "<leader>sf",
         send_line = "<leader>sl",
         send_until_cursor = "<leader>su",

@@ -7,11 +7,12 @@ local lspconfig = require "lspconfig"
 local servers = {
   "html",
   "cssls",
-  "pyright",
+  -- "pyright",
   "ts_ls",
   "clangd",
   "ruff",
   "tinymist",
+  "jedi_language_server",
 }
 
 local nvlsp = require "nvchad.configs.lspconfig"
