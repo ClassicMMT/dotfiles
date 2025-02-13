@@ -23,6 +23,18 @@ options.iskeyword:append "-"
 -- enable breakindent
 options.breakindent = true
 
+-- -- enable python provider - Necessary for molten.nvim
+-- local enable_providers = {
+--   "python3_provider",
+--   "node_provider",
+-- }
+--
+-- for _, plugin in pairs(enable_providers) do
+--   vim.g["loaded_" .. plugin] = nil
+--   vim.cmd("runtime " .. plugin)
+-- end
+-- -- End Necessary for molten.nvim
+
 -- -- custom for html
 -- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 --   pattern = "*.html",

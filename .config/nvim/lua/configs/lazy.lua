@@ -34,7 +34,8 @@ return {
         "zip",
         "zipPlugin",
         "tutor",
-        "rplugin",
+        -- rplugin is required for molten.nvim
+        -- "rplugin",
         "syntax",
         "synmenu",
         "optwin",
