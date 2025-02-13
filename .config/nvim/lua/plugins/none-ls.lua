@@ -31,6 +31,7 @@ return {
           "markdown",
         },
       },
+
       -- format shell scripts with 4-space indentations
       null_ls.builtins.formatting.shfmt.with { args = { "-i", "4" } },
       null_ls.builtins.formatting.black,
