@@ -1,5 +1,5 @@
-# Zsh Autocompletion - install with: brew install zsh-autocomplete
-source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# # Zsh Autocompletion - install with: brew install zsh-autocomplete
+# source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Prompt character
 #export PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
