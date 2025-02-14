@@ -17,6 +17,10 @@ alias cond="conda deactivate"
 export VISUAL="nvim"
 export EDITOR="nvim"
 
+# Enable Vi mode in zsh - run brew install zsh-vi-mode
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
 # Terminal theme
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
