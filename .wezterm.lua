@@ -2,11 +2,17 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
+-- set fps - most important
+config.max_fps = 144
+config.animation_fps = 144
+-- config.cursor_blink_ease_in = ''
+config.front_end = "WebGpu"
+
 -- Fonts
 -- config.font = wezterm.font("MesloLGS Nerd Font Mono", { weight = "DemiBold" })
 -- config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
 config.font = wezterm.font("SF Mono", { weight = "DemiBold" })
-config.font_size = 17
+config.font_size = 15
 -- config.dpi = 96
 
 -- Remove tab bar
