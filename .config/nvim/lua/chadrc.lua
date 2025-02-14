@@ -8,7 +8,7 @@ local M = {}
 M.mason = {
   cmd = true,
   pkgs = {
-    "mypy",
+    -- "mypy",
     "debugpy",
   },
 }
