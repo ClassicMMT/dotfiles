@@ -7,6 +7,9 @@ return {
     local typst = require "typst-preview"
     typst.setup {
       invert_colors = "auto",
+      dependencies_bin = {
+        ["tinymist"] = "tinymist",
+      },
     }
 
     -- keymaps

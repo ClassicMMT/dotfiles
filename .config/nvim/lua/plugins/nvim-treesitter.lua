@@ -16,6 +16,7 @@ return {
       "r",
       "rnoweb",
       "typescript",
+      "typst",
       "vim",
       "vimdoc",
       "yaml",
