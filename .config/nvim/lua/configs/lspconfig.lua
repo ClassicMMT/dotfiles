@@ -10,8 +10,8 @@ local servers = {
   "pyright",
   "ts_ls",
   "clangd",
-  "ruff",
-  "tinymist",
+  -- "ruff",
+  -- "tinymist", -- for typst
   -- "jedi_language_server",
 }
 
@@ -73,6 +73,14 @@ lspconfig.emmet_ls.setup {
         ["bem.enabled"] = true,
       },
     },
+  },
+}
+
+lspconfig.tinymist.setup {
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    formatterMode = "typstyle",
   },
 }
 

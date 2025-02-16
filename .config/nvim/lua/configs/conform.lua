@@ -6,7 +6,8 @@ local options = {
 
     -- Custom
     markdown = { "prettier" },
-    python = { "isort", "black" },
+    -- python = { "isort", "black" },
+    -- python = { "isort" },
     json = { "prettier" },
     javascript = { "prettier" },
   },

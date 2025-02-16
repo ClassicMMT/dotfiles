@@ -9,7 +9,7 @@ return {
   config = function()
     require("mason-null-ls").setup {
       ensure_installed = {
-        "ruff",
+        -- "ruff",
         "prettier",
         "shfmt",
         "prettierd",
@@ -21,9 +21,9 @@ return {
     local null_ls = require "null-ls"
     local sources = {
       -- sorts imports
-      require("none-ls.formatting.ruff").with { extra_args = { "--extend-select" } },
+      -- require("none-ls.formatting.ruff").with { extra_args = { "--extend-select" } },
       -- formats the rest of the file
-      require "none-ls.formatting.ruff_format",
+      -- require "none-ls.formatting.ruff_format",
       null_ls.builtins.formatting.prettier.with {
         filetypes = {
           "json",
