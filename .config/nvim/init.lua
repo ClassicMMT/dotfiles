@@ -2,10 +2,6 @@ vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 
 vim.g.mapleader = " "
 
--- bootstrap lazy and all plugins
-
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-
 -- remove automatic comments
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
@@ -13,6 +9,9 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:remove { "r", "o" }
   end,
 })
+
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.uv.fs_stat(lazypath) then
   local repo = "https://github.com/folke/lazy.nvim.git"
