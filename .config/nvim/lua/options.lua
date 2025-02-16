@@ -23,16 +23,7 @@ options.iskeyword:append "-"
 -- enable breakindent
 options.breakindent = true
 
--- indent fix - must have treesitter indent disabled for this to work
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
-  callback = function()
-    vim.opt_local.indentexpr = ""
-    vim.opt_local.autoindent = true
-    vim.opt_local.smartindent = false
-    vim.opt_local.cindent = false
-  end,
-})
+vim.filetype.add { extension = { typ = "typst" } }
 
 -- -- enable python provider - Necessary for molten.nvim
 -- local enable_providers = {
