@@ -14,7 +14,8 @@ return {
     iron.setup {
       config = {
         scratch_repl = true,
-        repl_open_cmd = view.split.vertical.botright(0.5),
+        -- repl_open_cmd = view.split.vertical.botright(0.5),
+        repl_open_cmd = view.bottom(0.3),
         -- preferred = {
         --   python = "python"
         -- },
