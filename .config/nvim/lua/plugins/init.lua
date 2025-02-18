@@ -1,29 +1,34 @@
 return {
   -- { "stevearc/dressing.nvim", event = "VeryLazy" },
 
-  -- {
-  --   "sphamba/smear-cursor.nvim",
-  --   opts = {
-  --     stiffness = 0.8,
-  --     trailing_stiffness = 0.5,
-  --     distance_stop_animating = 0.5,
-  --   },
-  -- },
+  {
+    "andymass/vim-matchup",
+    event = "BufReadPre",
+    init = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
 
   {
-    "folke/twilight.nvim",
-    event = { "BufReadPre", "BufNewfile" },
+    "folke/flash.nvim",
+    event = "VeryLazy",
     opts = {
-      dimming = {
-        alpha = 0.5,
-        color = { "Normal", "#ffffff" },
+      modes = {
+        char = {
+          -- enabled = false,
+          -- multiline = false,
+          jump_labels = true,
+        },
       },
     },
-    -- -- runs twilight after loading
-    -- config = function(_, opts)
-    --   require("twilight").setup(opts)
-    --   vim.cmd "Twilight"
-    -- end,
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
   },
 
   {
@@ -41,16 +46,6 @@ return {
   },
 
   {
-    "ggandor/leap.nvim",
-    lazy = false,
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "tpope/vim-repeat" },
-    config = function()
-      require("leap").add_default_mappings()
-    end,
-  },
-
-  {
     "stevearc/conform.nvim",
     event = "BufWritePre",
     opts = require "configs.conform",
@@ -61,6 +56,13 @@ return {
     config = function()
       require "configs.lspconfig"
     end,
+  },
+
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has "nvim-0.10.0" == 1,
   },
 
   {
