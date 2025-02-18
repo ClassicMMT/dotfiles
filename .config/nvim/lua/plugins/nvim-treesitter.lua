@@ -1,6 +1,8 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
   opts = {
     ensure_installed = {
       "bash",
@@ -10,6 +12,7 @@ return {
       "html",
       "javascript",
       "json",
+      "latex",
       "lua",
       "markdown",
       "python",
@@ -32,7 +35,8 @@ return {
       },
     },
 
-    indent = { enable = true, disable = { "python" } },
+    -- indent = { enable = true, disable = { "python" } },
+    indent = { enable = true },
 
     highlight = {
       enable = true,
