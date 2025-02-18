@@ -71,7 +71,7 @@ return {
               "set",
             },
             r = {
-
+              -- also see: https://github.com/r-lib/tree-sitter-r/blob/main/grammar.js
               "argument_list",
               "arguments",
               "function_definition",
