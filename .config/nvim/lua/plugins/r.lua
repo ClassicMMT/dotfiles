@@ -14,28 +14,28 @@ local keymaps = {
     function()
       require("r.browser").start()
     end,
-    { desc = "Toggle Object Browser" },
+    desc = "Toggle Object Browser",
   },
   {
     "<BS>rh",
     function()
       require("r.run").action "help"
     end,
-    { desc = "Help" },
+    desc = "Help",
   },
   {
     "<BS>su",
     function()
       require("r.send").above_lines()
     end,
-    { desc = "Send Lines Above" },
+    desc = "Send Lines Above",
   },
   {
     "<BS>sf",
     function()
       require("r.send").source_file()
     end,
-    { desc = "Send File" },
+    desc = "Send File",
   },
 }
 
@@ -84,7 +84,7 @@ M = {
       objbr_place = "console,below",
       assignment_keymap = "++",
       pipe_keymap = "--",
-      -- pipe_version = "magrittr",
+      pipe_version = "magrittr",
       pdfviewer = "",
     }
     if vim.env.R_AUTO_START == "true" then
