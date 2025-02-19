@@ -136,13 +136,20 @@ return {
         -- ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm { select = true },
+        ["<Esc>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.abort() -- Close completion without leaving insert mode
+          else
+            fallback() -- If completion is not visible, fall back to the default behavior
+          end
+        end, { "i" }),
       },
 
       sources = cmp.config.sources {
+        { name = "path" }, -- file system paths
         { name = "nvim_lsp" },
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
-        { name = "path" }, -- file system paths
         { name = "cmp_r" }, -- for R
         -- { name = "jedi" },
       },
@@ -158,5 +165,22 @@ return {
         expandable_indicator = true,
       },
     }
+
+    -- Custom configuration for html
+    cmp.setup.filetype("html", {
+      sources = cmp.config.sources {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        -- { name = "path" },
+      },
+      sorting = {
+        comparators = {
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+        },
+      },
+    })
   end,
 }
