@@ -7,9 +7,6 @@ local map = vim.keymap.set
 -- map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
--- send cut values to black hole register
-map("n", "x", '"_x')
-
 -- Don't leave visual mode when changing indent
 map("x", ">", ">gv", { noremap = true })
 map("x", "<", "<gv", { noremap = true })
@@ -90,9 +87,6 @@ end, { expr = true, noremap = true })
 map("n", "<leader>tt", function()
   require("base46").toggle_transparency()
 end, { desc = "Toggle Transparency" })
-
--- toggle twilight
-map("n", "<leader>tw", "<cmd>Twilight<CR>", { desc = "Toggle Twilight" })
 
 -- END OF MY MAPPINGS --
 

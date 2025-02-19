@@ -2,6 +2,15 @@ return {
   -- { "stevearc/dressing.nvim", event = "VeryLazy" },
 
   {
+    "gbprod/cutlass.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      cut_key = "m",
+      exclude = { "ns", "nS" },
+    },
+  },
+
+  {
     "andymass/vim-matchup",
     event = "BufReadPre",
     init = function()
