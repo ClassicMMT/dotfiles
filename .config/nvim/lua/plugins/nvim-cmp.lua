@@ -28,10 +28,12 @@ return {
     -- snippets
     {
       "L3MON4D3/LuaSnip",
+      dependencies = {
+        "saadparwaiz1/cmp_luasnip", -- for autocompletion
+      },
       version = "v2.*",
       build = "make install_jsregexp",
     },
-    "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "rafamadriz/friendly-snippets", -- useful snippets
     "onsails/lspkind.nvim", -- vscode-like pictograms
     "R-nvim/cmp-r", -- for r autocompletion
@@ -115,8 +117,9 @@ return {
       },
 
       mapping = cmp.mapping.preset.insert {
-        ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-        ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+        ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, -- previous suggestion
+        ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, -- next suggestion
+        -- Allows jumping from one snippet node to another
         ["<C-l>"] = cmp.mapping(function(fallback) -- jump to next
           if luasnip.locally_jumpable(1) then
             luasnip.jump(1)
@@ -166,16 +169,24 @@ return {
       },
     }
 
-    -- Custom configuration for html
-    cmp.setup.filetype("html", {
+    -- Custom configurations
+    cmp.setup.filetype({ "html", "javascriptreact", "jsx" }, {
       sources = cmp.config.sources {
-        { name = "nvim_lsp" },
+        {
+          name = "nvim_lsp",
+          -- filters out text sources
+          entry_filter = function(entry, ctx)
+            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+          end,
+        },
         { name = "luasnip" },
         { name = "buffer" },
         -- { name = "path" },
       },
       sorting = {
         comparators = {
+          deprioritise(types.lsp.CompletionItemKind.Text),
+          deprioritise(types.lsp.CompletionItemKind.Keyword),
           cmp.config.compare.offset,
           cmp.config.compare.exact,
           cmp.config.compare.score,

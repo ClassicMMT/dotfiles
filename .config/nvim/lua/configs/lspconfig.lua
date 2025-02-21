@@ -84,6 +84,19 @@ lspconfig.tinymist.setup {
   },
 }
 
+lspconfig.ts_ls.setup {
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    javascript = {
+      autoImportFileExcludePatterns = { "node_modules", "bower_components" },
+    },
+    typescript = {
+      autoImportFileExcludePatterns = { "node_modules", "bower_components" },
+    },
+  },
+}
+
 -- NOT USED ANYMORE
 -- configuring r language server - might need to run "install.packages('languageserver')"
 -- lspconfig.r_language_server.setup {
