@@ -7,7 +7,8 @@ options.cursorlineopt = "both"
 
 -- scrolling
 options.scrolloff = 8
-options.sidescrolloff = 999
+-- options.sidescrolloff = 999
+options.sidescrolloff = 8
 options.wrap = false
 
 -- wait until timeout
