@@ -51,7 +51,34 @@ return {
     "kylechui/nvim-surround",
     event = { "BufReadPre", "BufNewFile" },
     version = "*",
-    config = true,
+    -- config = true,
+    config = function()
+      require("nvim-surround").setup {
+        keymaps = {
+          -- keymaps changed to play better with flash.nvim
+          insert = "<C-g>s",
+          insert_line = "<C-g>S",
+          -- normal = "ys",
+          normal = "<leader>s",
+          -- normal_cur = "yss",
+          normal_cur = "<leader>ss",
+          -- normal_line = "yS",
+          normal_line = "<leader>S",
+          -- normal_cur_line = "ySS",
+          normal_cur_line = "<leader>SS",
+          -- visual = "S",
+          visual = "<leader>S",
+          -- visual_line = "gS",
+          visual_line = "<leader>S",
+          -- delete = "ds",
+          delete = "<leader>ds",
+          -- change = "cs",
+          change = "<leader>cs",
+          -- change_line = "cS",
+          change_line = "<leader>cS",
+        },
+      }
+    end,
   },
 
   {
