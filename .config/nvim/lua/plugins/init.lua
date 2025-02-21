@@ -67,7 +67,7 @@ return {
           -- normal_cur_line = "ySS",
           normal_cur_line = "<leader>SS",
           -- visual = "S",
-          visual = "<leader>S",
+          visual = "<leader>s",
           -- visual_line = "gS",
           visual_line = "<leader>S",
           -- delete = "ds",
