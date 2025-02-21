@@ -37,21 +37,6 @@ M.base46 = {
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
-
-    -- IblChar = { fg = "#0000ff" },
-    -- IblScopeChar = { fg = "#00ff00" },
-    -- indent-blankline
-    -- ["@ibl.scope.underline.1"] = { bg = { "black", "red", 10 } },
-    -- ["@ibl.scope.underline.2"] = { bg = { "black", "yellow", 10 } },
-    -- ["@ibl.scope.underline.3"] = { bg = { "black", "blue", 10 } },
-    -- ["@ibl.scope.underline.4"] = { bg = { "black", "orange", 10 } },
-    -- ["@ibl.scope.underline.5"] = { bg = { "black", "green", 10 } },
-    -- ["@ibl.scope.underline.6"] = { bg = { "black", "purple", 10 } },
-    -- ["@ibl.scope.underline.7"] = { bg = { "black", "cyan", 10 } },
-    -- ["@ibl.indent.char.1"] = { nocombine = true },
-    -- ["@ibl.scope.char.1"] = { fg = "#777777", bg = "#151515", nocombine = true },
-    -- ["@ibl.whitespace.char.1"] = { nocombine = true },
-    -- ["@ibl.scope.underline.1"] = { sp = "#777777", underline = true },
   },
 }
 
