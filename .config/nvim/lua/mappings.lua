@@ -15,6 +15,9 @@ map("x", "<", "<gv", { noremap = true })
 map({ "n", "x" }, "H", "^")
 map({ "n", "x" }, "L", "$")
 
+map({ "n", "x" }, "-", "<C-x>")
+map({ "n", "x" }, "+", "<C-a>")
+
 -- Comment
 -- map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 -- map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
