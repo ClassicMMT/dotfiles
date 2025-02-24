@@ -11,6 +11,9 @@ map("i", "jk", "<ESC>")
 map("x", ">", ">gv", { noremap = true })
 map("x", "<", "<gv", { noremap = true })
 
+-- Don't leave visual mode on yank
+map("x", "y", "ygv", { noremap = true })
+
 -- Remap $ and ^
 map({ "n", "x" }, "H", "^")
 map({ "n", "x" }, "L", "$")
