@@ -11,6 +11,18 @@ return {
   },
 
   {
+    "nvim-telescope/telescope-frecency.nvim",
+    version = "*",
+    config = function()
+      require("telescope").load_extension "frecency"
+      require("frecency.config").setup {
+        auto_validate = true,
+        ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store" },
+      }
+    end,
+  },
+
+  {
     "andymass/vim-matchup",
     event = "BufReadPre",
     init = function()
