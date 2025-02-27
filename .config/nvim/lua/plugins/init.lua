@@ -22,11 +22,16 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {
+      -- q and p labels removed
+      labels = "asdfghjklwertyuiozxcvbnm",
       modes = {
         char = {
           -- enabled = false,
           -- multiline = false,
           jump_labels = true,
+          -- jump = {
+          --   autojump = true,
+          -- },
         },
       },
     },
