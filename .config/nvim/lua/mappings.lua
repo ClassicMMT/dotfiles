@@ -6,13 +6,13 @@ local map = vim.keymap.set
 
 -- map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+-- shift enter opens new line from insert mode
+map("i", "<S-CR>", "<ESC>o")
 
--- Don't leave visual mode when changing indent
+-- Don't leave visual mode when changing indent or yank
 map("x", ">", ">gv", { noremap = true })
 map("x", "<", "<gv", { noremap = true })
-
--- Don't leave visual mode on yank
-map("x", "y", "ygv", { noremap = true })
+map("v", "y", "ygv", { noremap = true })
 
 -- Remap $ and ^
 map({ "n", "x" }, "H", "^")
@@ -52,7 +52,7 @@ map({ "n", "v" }, "<leader>gb", function()
   vim.fn.setreg("+", filepath) -- write to clipboard
 end, { desc = "Path copy to clipboard" })
 
--- vscode-like shortcuts
+-- macos-like shortcuts
 map("i", "<C-BS>", function()
   -- like command backspace
   if vim.fn.col "." == 1 then
@@ -72,7 +72,7 @@ map("n", "<C-BS>", function()
 end, { expr = true, noremap = true })
 
 map("i", "<M-BS>", function()
-  -- like command backspace
+  -- like option backspace
   if vim.fn.col "." == 1 then
     return "<BS>"
   else
@@ -81,7 +81,7 @@ map("i", "<M-BS>", function()
 end, { expr = true, noremap = true })
 
 map("n", "<M-BS>", function()
-  -- like command backspace
+  -- like option backspace
   if vim.fn.col "." == 1 then
     return "X"
   else
@@ -111,13 +111,14 @@ map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
 
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
 
-map("n", "<leader>nn", "<cmd>set nu!<CR>", { desc = "toggle line number" })
-map("n", "<leader>nr", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
-map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
+-- Line numbers
+-- map("n", "<leader>nn", "<cmd>set nu!<CR>", { desc = "toggle line number" })
+-- map("n", "<leader>nr", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
+-- map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
 
-map("n", "<leader>fm", function()
-  require("conform").format { lsp_fallback = true }
-end, { desc = "general format file" })
+-- map("n", "<leader>fm", function()
+--   require("conform").format { lsp_fallback = true }
+-- end, { desc = "general format file" })
 
 -- global lsp mappings
 map("n", "<leader>ld", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
@@ -170,7 +171,7 @@ map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "git commits" 
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "git status" })
 
 -- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+-- map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- new terminals
 -- map("n", "<leader>th", function()
@@ -182,20 +183,20 @@ map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 -- end, { desc = "terminal new vertical term" })
 
 -- toggleable
-map({ "n", "t" }, "<leader>tv", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
-
-map({ "n", "t" }, "<leader>th", function()
-  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "terminal toggleable horizontal term" })
-
-map({ "n", "t" }, "<leader>tf", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "terminal toggle floating term" })
+-- map({ "n", "t" }, "<leader>tv", function()
+--   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+-- end, { desc = "terminal toggleable vertical term" })
+--
+-- map({ "n", "t" }, "<leader>th", function()
+--   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+-- end, { desc = "terminal toggleable horizontal term" })
+--
+-- map({ "n", "t" }, "<leader>tf", function()
+--   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+-- end, { desc = "terminal toggle floating term" })
 
 -- whichkey
-map("n", "<leader>wk", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
+-- map("n", "<leader>wk", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 
 -- map("n", "<leader>wK", function()
 --   vim.cmd("WhichKey " .. vim.fn.input "WhichKey: ")
