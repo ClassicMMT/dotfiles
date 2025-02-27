@@ -41,6 +41,7 @@ return {
 
   config = function()
     local cmp = require "cmp"
+    local config = require "cmp.config"
     local luasnip = require "luasnip"
     local lspkind = require "lspkind"
     local types = require "cmp.types"
@@ -59,6 +60,35 @@ return {
           return true
         end
       end
+    end
+
+    -- taken from Wincent's dotfiles (https://github.com/wincent/wincent/blob/64947cd9efc70844/aspects/nvim/files/.config/nvim/after/plugin/nvim-cmp.lua)
+    -- logic to decide whether to insert or replace the suffix when inside a word
+    local confirm = function(entry)
+      local behavior = cmp.ConfirmBehavior.Replace
+      if entry then
+        local completion_item = entry.completion_item
+        local newText = ""
+        -- probably came from lsp server if .textEdit exists
+        if completion_item.textEdit then
+          newText = completion_item.textEdit.newText
+        elseif type(completion_item.insertText) == "string" and completion_item.insertText ~= "" then
+          newText = completion_item.insertText
+        else
+          newText = completion_item.word or completion_item.label or ""
+        end
+
+        -- How many characters will be different after the cursor position if we
+        -- replace?
+        local diff_after = math.max(0, entry.replace_range["end"].character + 1) - entry.context.cursor.col
+
+        -- Does the text that will be replaced after the cursor match the suffix
+        -- of the `newText` to be inserted? If not, we should `Insert` instead.
+        if entry.context.cursor_after_line:sub(1, diff_after) ~= newText:sub(-diff_after) then
+          behavior = cmp.ConfirmBehavior.Insert
+        end
+      end
+      cmp.confirm { select = true, behavior = behavior }
     end
 
     cmp.setup {
@@ -138,7 +168,14 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         -- ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
-        ["<CR>"] = cmp.mapping.confirm { select = true },
+        -- ["<CR>"] = cmp.mapping.confirm { select = true },
+        ["<CR>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            confirm(cmp.get_entries()[1])
+          else
+            fallback()
+          end
+        end),
         ["<Esc>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.abort() -- Close completion without leaving insert mode
@@ -192,6 +229,34 @@ return {
           cmp.config.compare.score,
         },
       },
+    })
+
+    -- taken from Wincent's dotfiles (https://github.com/wincent/wincent/blob/64947cd9efc70844/aspects/nvim/files/.config/nvim/after/plugin/nvim-cmp.lua)
+    -- fixes ghost text issues when inside a word
+    local toggle_ghost_text = function()
+      if vim.api.nvim_get_mode().mode ~= "i" then
+        return
+      end
+
+      local cursor_column = vim.fn.col "."
+      local current_line_contents = vim.fn.getline "."
+      local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
+
+      local should_enable_ghost_text = character_after_cursor == ""
+        or vim.fn.match(character_after_cursor, [[\k]]) == -1
+
+      local current = config.get().experimental.ghost_text
+      if current ~= should_enable_ghost_text then
+        config.set_global {
+          experimental = {
+            ghost_text = should_enable_ghost_text,
+          },
+        }
+      end
+    end
+
+    vim.api.nvim_create_autocmd({ "InsertEnter", "CursorMovedI" }, {
+      callback = toggle_ghost_text,
     })
   end,
 }
