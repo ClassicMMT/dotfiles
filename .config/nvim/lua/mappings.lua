@@ -28,7 +28,7 @@ map("n", "''", "gcc", { desc = "toggle comment", remap = true })
 map("v", "''", "gc", { desc = "toggle comment", remap = true })
 
 -- Allow ciw da( etc for other symbols
-local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?" }
+local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?", "$" }
 for _, char in ipairs(chars) do
   for _, mode in ipairs { "x", "o" } do
     vim.api.nvim_set_keymap(
@@ -141,12 +141,13 @@ map("n", "<leader>ld", vim.diagnostic.setloclist, { desc = "LSP diagnostic locli
 -- nvimtree
 map("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer to current location" })
-map("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
-map("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
+-- map("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
+-- map("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
 
 -- telescope
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find recent files" })
+-- map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find recent files" })
+map("n", "<leader>fo", "<cmd>Telescope frecency<CR>", { desc = "telescope find recent files" })
 map("n", "<leader>fs", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
