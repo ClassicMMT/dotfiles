@@ -26,6 +26,11 @@ options.breakindent = true
 
 vim.filetype.add { extension = { typ = "typst" } }
 
+-- enable folding
+options.foldmethod = "expr"
+options.foldexpr = "nvim_treesitter#foldexpr()"
+options.foldenable = false
+
 -- -- enable python provider - Necessary for molten.nvim
 -- local enable_providers = {
 --   "python3_provider",
