@@ -12,15 +12,24 @@ return {
         local cmp = require "cmp"
         local mapping = cmp.mapping
 
+        -- for commands
         cmp.setup.cmdline(":", {
           mapping = mapping.preset.cmdline {
             ["<CR>"] = mapping.confirm { select = true },
             ["<C-j>"] = mapping(mapping.select_next_item(), { "i", "c" }),
             ["<C-k>"] = mapping(mapping.select_prev_item(), { "i", "c" }),
-            ["<C-e>"] = mapping.abort(), -- close completion window
+            ["<ESC>"] = mapping.abort(), -- close completion window
           },
           sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
           matching = { disallow_symbol_nonprefix_matching = false },
+        })
+
+        -- for searching
+        cmp.setup.cmdline("/", {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = "buffer" },
+          },
         })
       end,
     },
