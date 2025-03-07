@@ -22,6 +22,16 @@ map({ "n", "x" }, "L", "$")
 map({ "n", "x" }, "-", "<C-x>")
 map({ "n", "x" }, "+", "<C-a>")
 
+-- disable highlights for * and #
+map({ "n" }, "*", function()
+  vim.cmd "normal! *"
+  vim.cmd "nohl"
+end)
+map({ "n" }, "#", function()
+  vim.cmd "normal! #"
+  vim.cmd "nohl"
+end)
+
 -- Comment
 -- map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 -- map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
@@ -146,8 +156,8 @@ map("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file 
 -- map("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
 
 -- telescope
--- map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
-map("n", "<leader>ff", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "telescope find files" })
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
+-- map("n", "<leader>ff", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "telescope find files" })
 -- map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find recent files" })
 map("n", "<leader>fo", "<cmd>Telescope frecency<CR>", { desc = "telescope find recent files" })
 map("n", "<leader>fs", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
