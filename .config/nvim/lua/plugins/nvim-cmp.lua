@@ -178,9 +178,16 @@ return {
         -- ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         -- ["<CR>"] = cmp.mapping.confirm { select = true },
-        ["<CR>"] = cmp.mapping(function(fallback)
+        ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             confirm(cmp.get_entries()[1])
+          else
+            fallback()
+          end
+        end),
+        ["<CR>"] = cmp.mapping(function(fallback)
+          if cmp.visible() and cmp.get_selected_entry() then
+            confirm(cmp.get_selected_entry())
           else
             fallback()
           end
@@ -196,10 +203,30 @@ return {
 
       sources = cmp.config.sources {
         { name = "path" }, -- file system paths
-        { name = "nvim_lsp" },
+        {
+          name = "nvim_lsp",
+
+          -- filters out text sources
+          entry_filter = function(entry, _)
+            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+          end,
+        },
         { name = "luasnip" }, -- snippets
-        { name = "buffer" }, -- text within current buffer
-        { name = "cmp_r" }, -- for R
+        {
+          name = "buffer",
+
+          -- filters out text sources
+          entry_filter = function(entry, _)
+            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+          end,
+        }, -- text within current buffer
+        {
+          name = "cmp_r",
+          -- filters out text sources
+          entry_filter = function(entry, _)
+            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+          end,
+        }, -- for R
         -- { name = "jedi" },
       },
 
@@ -221,7 +248,7 @@ return {
         {
           name = "nvim_lsp",
           -- filters out text sources
-          entry_filter = function(entry, ctx)
+          entry_filter = function(entry, _)
             return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
           end,
         },
