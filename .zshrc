@@ -81,3 +81,6 @@ HOMEBREW_NO_AUTO_UPDATE=1
 
 export PATH="/Applications/Alacritty.app/Contents/MacOS:$PATH"
 
+# allows rendering markdown documents in console
+export RSTUDIO_PANDOC="/Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64"
+
