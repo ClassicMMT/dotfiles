@@ -9,7 +9,7 @@ options.cursorlineopt = "both"
 options.scrolloff = 8
 -- options.sidescrolloff = 999
 options.sidescrolloff = 8
-options.wrap = false
+options.wrap = true
 
 -- wait until timeout
 options.timeoutlen = 250
@@ -23,6 +23,8 @@ options.iskeyword:append "-"
 
 -- enable breakindent
 options.breakindent = true
+options.linebreak = true
+options.breakindentopt = "shift:4"
 
 vim.filetype.add { extension = { typ = "typst" } }
 
