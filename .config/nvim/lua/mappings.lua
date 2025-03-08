@@ -34,6 +34,7 @@ end)
 
 -- jump to and from terminal
 map("n", "<C-j>", "<C-w><C-w>")
+map("t", "<Esc>", "<C-\\><C-N>")
 map("n", "<C-k>", "<C-w><C-w>")
 
 -- Comment
