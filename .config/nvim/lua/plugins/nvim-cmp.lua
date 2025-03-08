@@ -57,7 +57,16 @@ return {
 
     require("luasnip.loaders.from_vscode").lazy_load()
 
-    luasnip.setup {}
+    -- custom snippets
+    require("snippets").load()
+
+    luasnip.config.setup {
+      store_selection_keys = "<Tab>",
+      updateevents = { "TextChanged", "TextChangedI" },
+      enable_autosnippets = true,
+    }
+
+    -- luasnip.setup {}
 
     -- for de-priorotising snippets, text and keywords
     local function deprioritise(kind)
@@ -121,30 +130,40 @@ return {
         priority_weight = 10,
         -- see: https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
         comparators = {
-          -- puts snippets, text and keywords at the bottom
-          deprioritise(types.lsp.CompletionItemKind.Snippet),
-          deprioritise(types.lsp.CompletionItemKind.Text),
-          deprioritise(types.lsp.CompletionItemKind.Keyword),
-          cmp.config.compare.scopes,
+          -- -- puts snippets, text and keywords at the bottom
+          -- deprioritise(types.lsp.CompletionItemKind.Snippet),
+          -- deprioritise(types.lsp.CompletionItemKind.Keyword),
+          -- cmp.config.compare.scopes,
+          -- cmp.config.compare.offset,
+          -- cmp.config.compare.exact,
+          -- cmp.config.compare.score,
+          --
+          -- -- Copied from cmp-under-comparator - lowers priority of completions starting with _ or __
+          -- function(entry1, entry2)
+          --   local _, entry1_under = entry1.completion_item.label:find "^_+"
+          --   local _, entry2_under = entry2.completion_item.label:find "^_+"
+          --   entry1_under = entry1_under or 0
+          --   entry2_under = entry2_under or 0
+          --   if entry1_under > entry2_under then
+          --     return false
+          --   elseif entry1_under < entry2_under then
+          --     return true
+          --   end
+          -- end,
+          -- -- cmp.config.compare.kind,
+          -- -- cmp.config.compare.sort_text,
+          -- -- cmp.config.compare.length,
+          -- cmp.config.compare.order,
+
           cmp.config.compare.offset,
+          -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
           cmp.config.compare.exact,
           cmp.config.compare.score,
-
-          -- Copied from cmp-under-comparator - lowers priority of completions starting with _ or __
-          function(entry1, entry2)
-            local _, entry1_under = entry1.completion_item.label:find "^_+"
-            local _, entry2_under = entry2.completion_item.label:find "^_+"
-            entry1_under = entry1_under or 0
-            entry2_under = entry2_under or 0
-            if entry1_under > entry2_under then
-              return false
-            elseif entry1_under < entry2_under then
-              return true
-            end
-          end,
-          -- cmp.config.compare.kind,
-          -- cmp.config.compare.sort_text,
-          -- cmp.config.compare.length,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
           cmp.config.compare.order,
         },
       },
@@ -188,6 +207,8 @@ return {
         ["<CR>"] = cmp.mapping(function(fallback)
           if cmp.visible() and cmp.get_selected_entry() then
             confirm(cmp.get_selected_entry())
+          elseif cmp.visible() then
+            confirm(cmp.get_entries()[1])
           else
             fallback()
           end
@@ -210,6 +231,7 @@ return {
           entry_filter = function(entry, _)
             return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
           end,
+          -- can filter snippets by returning false if entry:get_kind() == 15
         },
         { name = "luasnip" }, -- snippets
         {
@@ -294,5 +316,23 @@ return {
     vim.api.nvim_create_autocmd({ "InsertEnter", "CursorMovedI" }, {
       callback = toggle_ghost_text,
     })
+
+    -- snippet expansion mappings
+    local rmd_snippets = require "snippets.rmd"
+    local map = vim.keymap.set
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "rmd" },
+      callback = function()
+        map({ "i", "n" }, "<A-C-i>", function()
+          luasnip.snip_expand(rmd_snippets.r_chunk)
+        end)
+      end,
+    })
+
+    -- map("n", "<leader>sr", "<cmd>source " .. vim.fn.stdpath "config" .. "/lua/snippets/snippets.lua<CR>")
+    map("n", "<leader>sr", function()
+      require("snippets").load()
+    end)
   end,
 }
