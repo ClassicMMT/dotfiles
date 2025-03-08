@@ -33,6 +33,9 @@ options.foldmethod = "expr"
 options.foldexpr = "nvim_treesitter#foldexpr()"
 options.foldenable = false
 
+-- inlay hints
+vim.lsp.inlay_hint.enable(true)
+
 -- -- enable python provider - Necessary for molten.nvim
 -- local enable_providers = {
 --   "python3_provider",

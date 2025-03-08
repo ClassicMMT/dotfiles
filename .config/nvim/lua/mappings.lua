@@ -111,9 +111,13 @@ map("n", "<leader>tt", function()
 end, { desc = "Toggle Transparency" })
 
 -- floating diagnostic
-vim.keymap.set("n", "gh", function()
+map("n", "gh", function()
   vim.diagnostic.open_float(nil, { focus = false })
 end, { noremap = true, silent = true })
+
+map("n", "<leader>ih", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle Inlay Hints" })
 
 -- END OF MY MAPPINGS --
 
