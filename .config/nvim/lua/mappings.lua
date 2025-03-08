@@ -110,6 +110,11 @@ map("n", "<leader>tt", function()
   require("base46").toggle_transparency()
 end, { desc = "Toggle Transparency" })
 
+-- floating diagnostic
+vim.keymap.set("n", "gh", function()
+  vim.diagnostic.open_float(nil, { focus = false })
+end, { noremap = true, silent = true })
+
 -- END OF MY MAPPINGS --
 
 -- Modified nvchad.mappings

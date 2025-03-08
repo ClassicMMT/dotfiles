@@ -109,6 +109,14 @@ return {
       cmp.confirm { select = true, behavior = behavior }
     end
 
+    local function is_snippet(entry)
+      if require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Snippet" then
+        return true
+      else
+        return false
+      end
+    end
+
     cmp.setup {
       completion = {
         completeopt = "menu,menuone,preview,noselect",
@@ -207,7 +215,7 @@ return {
         ["<CR>"] = cmp.mapping(function(fallback)
           if cmp.visible() and cmp.get_selected_entry() then
             confirm(cmp.get_selected_entry())
-          elseif cmp.visible() then
+          elseif cmp.visible() and not is_snippet(cmp.get_entries()[1]) then
             confirm(cmp.get_entries()[1])
           else
             fallback()
