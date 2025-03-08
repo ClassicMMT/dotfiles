@@ -45,15 +45,5 @@ options.foldenable = false
 -- end
 -- -- End Necessary for molten.nvim
 
--- -- custom for html
--- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
---   pattern = "*.html",
---   callback = function()
---     options.tabstop = 4
---     options.shiftwidth = 4
---     options.softtabstop = 4
---   end,
--- })
-
 -- set correct filetype for latex
 vim.g.tex_flavor = "latex"
