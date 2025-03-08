@@ -54,3 +54,6 @@ options.foldenable = false
 --     options.softtabstop = 4
 --   end,
 -- })
+
+-- set correct filetype for latex
+vim.g.tex_flavor = "latex"
