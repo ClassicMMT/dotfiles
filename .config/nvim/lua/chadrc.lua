@@ -37,6 +37,11 @@ M.base46 = {
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
+    LspInlayHint = {
+      fg = "#4f4f4f",
+      bg = "NONE",
+      italic = true,
+    },
   },
 }
 
