@@ -7,7 +7,8 @@ local lspconfig = require "lspconfig"
 local servers = {
   "html",
   "cssls",
-  "pyright",
+  -- "pyright",
+  "basedpyright",
   "ts_ls",
   "clangd",
   -- "ruff",
@@ -106,3 +107,63 @@ lspconfig.ts_ls.setup {
 --   on_init = nvlsp.on_init,
 --   capabilities = nvlsp.capabilities,
 -- }
+
+-- lspconfig.ruff.setup {
+--   cmd = { "R", "--no-save", "--no-restore", "-e", "languageserver::run()" },
+--   filetypes = { "r", "rmd" },
+--   on_attach = nvlsp.on_attach,
+--   on_init = nvlsp.on_init,
+--   capabilities = nvlsp.capabilities,
+-- }
+
+-- this line is only needed for pyright - to deactivate import warnings
+-- nvlsp.capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
+lspconfig.basedpyright.setup {
+  filetypes = { "py" },
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    basedpyright = { -- change this line to python if going back to pyright
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        autoImportCompletions = true,
+        diagnosticMode = "workspace", -- Options: openFilesOnly, workspace
+        typeCheckingMode = "basic", -- Options: off, basic, strict
+        -- IMPORTANT INFO FOR STUBS:
+        -- stubs should be installed globally (NOT in a virtual environment) so they can be used across environments
+        -- install from: https://github.com/microsoft/python-type-stubs
+        -- find directory with: pip show microsoft-python-type-stubs
+        stubPath = "/opt/miniconda3/lib/python3.12/site-packages",
+        logLevel = "Information", -- Options: Error, Warning, Information, Trace
+        diagnosticSeverityOverrides = {
+          strictListInference = true,
+          strictDictionaryInference = true,
+          strictSetInference = true,
+          reportUnusedExpression = "none",
+          reportUnusedCoroutine = "none",
+          reportUnusedClass = "none",
+          reportUnusedImport = "none",
+          reportUnusedFunction = "none",
+          reportUnusedVariable = "none",
+          reportUnusedCallResult = "none",
+          reportDuplicateImport = "warning",
+          reportPrivateUsage = "warning",
+          reportConstantRedefinition = "error",
+          reportIncompatibleMethodOverride = "error",
+          reportMissingImports = "error",
+          reportUndefinedVariable = "error",
+          reportAssertAlwaysTrue = "error",
+        },
+
+        inlayHints = {
+          variableTypes = false,
+          functionReturnTypes = false,
+          pytestParameters = true,
+          callArgumentNames = true,
+        },
+      },
+    },
+  },
+}
