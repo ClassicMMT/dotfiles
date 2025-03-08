@@ -13,6 +13,7 @@ return {
 
     iron.setup {
       config = {
+        highlight_last = false,
         scratch_repl = true,
         -- repl_open_cmd = view.split.vertical.botright(0.5),
         repl_open_cmd = view.bottom(0.3),
@@ -23,8 +24,9 @@ return {
           sh = { "zsh" },
           python = {
             -- command = { "python" },
+            command = { "ipython" },
             -- run "pip install ptpython" - otherwise, use the line above
-            command = { "ptpython", "--vi" },
+            -- command = { "ptpython", "--vi" },
             format = require("iron.fts.common").bracketed_paste,
           },
         },
@@ -32,9 +34,11 @@ return {
 
       keymaps = {
         -- send_motion = "<leader>sc",
-        visual_send = "<leader>sc",
+        -- visual_send = "<leader>sc",
+        visual_send = "<CR>",
         send_file = "<leader>sf",
-        send_line = "<leader>sl",
+        -- send_line = "<leader>sl",
+        send_line = "<CR>",
         send_until_cursor = "<leader>su",
         -- send_mark = "<leader>sm",
         -- mark_motion = "<leader>mc",
