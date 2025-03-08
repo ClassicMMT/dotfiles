@@ -43,15 +43,28 @@ M = {
   "R-nvim/R.nvim",
   lazy = false,
   version = "~0.1.0",
+  -- branch = "feature/improve-chunk-handling",
   keys = keymaps,
+
   config = function()
     local opts = {
       hook = {
         on_filetype = function()
-          vim.api.nvim_buf_set_keymap(0, "n", "<Enter>", "<Plug>RDSendLine", {})
-          vim.api.nvim_buf_set_keymap(0, "v", "<Enter>", "<Plug>RSendSelection", {})
+          local map = vim.api.nvim_buf_set_keymap
+          -- send
+          map(0, "n", "<Enter>", "<Plug>RSendLine", {})
+          map(0, "n", "<S-Enter>", "<Plug>RDSendLine", {})
+          map(0, "v", "<Enter>", "<Plug>RSendSelection", {})
+
+          -- rmd
+          map(0, "n", "<BS>sc", "<Plug>RSendChunk", {})
+          map(0, "n", "<BS>sa", "<CMD>lua require('r.send').chunks_up_to_here()<CR>", { desc = "Run Above Chunks" })
+
+          -- close
+          map(0, "n", "<BS>rq", "<CMD>lua require('r.run').quit_R('nosave')<CR>", { desc = "R Close" })
         end,
       },
+
       R_args = { "--quiet", "--no-save" },
       min_editor_width = 72,
       rconsole_width = 78,
@@ -73,7 +86,7 @@ M = {
       -- My custom options
 
       auto_quit = true,
-      user_maps_only = true, -- removes all default keybindings and keeps only user ones
+      -- user_maps_only = true, -- removes all default keybindings and keeps only user ones
       applescript = true,
       Rout_more_colors = true,
       objbr_allnames = false,
@@ -87,6 +100,7 @@ M = {
       pipe_version = "magrittr",
       pdfviewer = "",
     }
+
     if vim.env.R_AUTO_START == "true" then
       opts.auto_start = "on startup"
       opts.objbr_auto_start = true
