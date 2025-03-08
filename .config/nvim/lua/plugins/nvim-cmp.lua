@@ -110,7 +110,7 @@ return {
     end
 
     local function is_snippet(entry)
-      if require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Snippet" then
+      if require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] == "Snippet" then
         return true
       else
         return false
