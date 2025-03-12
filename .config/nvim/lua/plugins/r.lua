@@ -42,8 +42,8 @@ local keymaps = {
 M = {
   "R-nvim/R.nvim",
   lazy = false,
-  version = "~0.1.0",
-  -- branch = "feature/improve-chunk-handling",
+  -- version = "~0.1.0",
+  branch = "feature/improve-chunk-handling",
   keys = keymaps,
 
   config = function()
@@ -55,11 +55,19 @@ M = {
           map(0, "n", "<Enter>", "<Plug>RSendLine", {})
           map(0, "n", "<S-Enter>", "<Plug>RDSendLine", {})
           map(0, "v", "<Enter>", "<Plug>RSendSelection", {})
-
+          map(
+            0,
+            "n",
+            "<LocalLeader>gd",
+            "<cmd>lua require('r.send').cmd('tryCatch(httpgd::hgd_browse(),error=function(e) {httpgd::hgd();httpgd::hgd_browse()})')<CR>",
+            { desc = "httpgd" }
+          )
           -- rmd
           map(0, "n", "<BS>sc", "<Plug>RSendChunk", {})
           map(0, "n", "<BS>sa", "<CMD>lua require('r.send').chunks_up_to_here()<CR>", { desc = "Run Above Chunks" })
 
+          -- close device
+          map(0, "n", "<BS>wq", "<Cmd>lua require('r.send').cmd('dev.off()')<CR>", { noremap = true })
           -- close
           map(0, "n", "<BS>rq", "<CMD>lua require('r.run').quit_R('nosave')<CR>", { desc = "R Close" })
         end,
@@ -86,8 +94,11 @@ M = {
       -- My custom options
 
       auto_quit = true,
+      silent_term = true,
+      -- external_term = "kitty", -- linux only
       -- user_maps_only = true, -- removes all default keybindings and keeps only user ones
-      applescript = true,
+      -- applescript = true,
+      applescript = false,
       Rout_more_colors = true,
       objbr_allnames = false,
       objbr_auto_start = false,
