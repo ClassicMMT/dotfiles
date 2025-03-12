@@ -33,13 +33,17 @@ map({ "n" }, "#", function()
 end)
 
 -- jump to and from terminal
-map("n", "<C-j>", "<C-w><C-w>")
-map("t", "<Esc>", "<C-\\><C-N>")
-map("n", "<C-k>", "<C-w><C-w>")
+-- map("n", "<C-j>", "<C-w><C-w>")
+map("t", "<Esc>", "<C-\\><C-N>") -- exit insert mode
+-- map("n", "<C-k>", "<C-w><C-w>")
+
+-- exit terminal even when in insert mode
+map("t", "<C-h>", "<C-\\><C-n><C-w>h")
+map("t", "<C-j>", "<C-\\><C-n><C-w>j")
+map("t", "<C-k>", "<C-\\><C-n><C-w>k")
+map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 
 -- Comment
--- map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
--- map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 map("n", "''", "gcc", { desc = "toggle comment", remap = true })
 map("v", "''", "gc", { desc = "toggle comment", remap = true })
 
@@ -127,10 +131,10 @@ map("i", "<C-l>", "<Right>", { desc = "move right" })
 map("i", "<C-j>", "<Down>", { desc = "move down" })
 map("i", "<C-k>", "<Up>", { desc = "move up" })
 
--- map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
--- map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
--- map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
--- map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
+map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
+map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
 
