@@ -18,7 +18,7 @@ return {
     end, {})
   ),
 
-  s("expand", t { "-- this is what was expanded!" }),
+  -- s("expand", t { "-- this is what was expanded!" }),
 
   -- s("req", fmt("local {} = require('{}')", { i(1, "default"), rep(1) })),
 }

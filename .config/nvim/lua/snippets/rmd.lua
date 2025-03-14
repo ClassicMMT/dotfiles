@@ -27,6 +27,4 @@ return {
   --   i(1, { "" }), -- Placeholder for the selected text
   --   t { "", "```" },
   -- }),
-  s("expand", t { "-- this is what was expanded!" }),
-  s({ trig = ";a", snippetType = "autosnippet", wordTrig = false }, t { "A" }),
 }

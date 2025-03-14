@@ -1,7 +1,7 @@
 local ls = require "luasnip"
 local s = ls.snippet
 local t = ls.text_node
--- local i = ls.insert_node
+local i = ls.insert_node
 local f = ls.function_node
 -- local fmt = require("luasnip.extras.fmt").fmt
 
@@ -16,6 +16,14 @@ return {
       return res
     end, {})
   ),
+
+  s("frac", {
+    t "\\frac{",
+    i(1, "numerator"),
+    t "}{",
+    i(2, "denominator"),
+    t "}",
+  }),
 
   -- autosnippets
   s({ trig = ";a", snippetType = "autosnippet", desc = "alpha", wordTrig = false }, { t "\\alpha" }),

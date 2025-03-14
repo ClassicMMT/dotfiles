@@ -9,10 +9,14 @@ local load_snippets = function()
   local lua_snippets = require "snippets.lua"
   local tex_snippets = require "snippets.tex"
 
-  ls.add_snippets("r", r_snippets)
-  ls.add_snippets("rmd", rmd_snippets)
-  ls.add_snippets("lua", lua_snippets)
   ls.add_snippets("tex", tex_snippets)
+
+  ls.add_snippets("rmd", rmd_snippets)
+  ls.add_snippets("rmd", tex_snippets)
+
+  ls.add_snippets("r", r_snippets)
+
+  ls.add_snippets("lua", lua_snippets)
 end
 
 return {
