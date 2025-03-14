@@ -11,6 +11,7 @@ local servers = {
   "basedpyright",
   "ts_ls",
   "clangd",
+  "texlab",
   -- "ruff",
   -- "tinymist", -- for typst
   -- "jedi_language_server",
@@ -130,7 +131,7 @@ lspconfig.basedpyright.setup {
         useLibraryCodeForTypes = true,
         autoImportCompletions = true,
         diagnosticMode = "workspace", -- Options: openFilesOnly, workspace
-        typeCheckingMode = "basic", -- Options: off, basic, strict
+        typeCheckingMode = "off", -- Options: off, basic, strict
         -- IMPORTANT INFO FOR STUBS:
         -- stubs should be installed globally (NOT in a virtual environment) so they can be used across environments
         -- install from: https://github.com/microsoft/python-type-stubs
@@ -166,4 +167,8 @@ lspconfig.basedpyright.setup {
       },
     },
   },
+}
+
+lspconfig.texlab.setup {
+  filetypes = { "tex", "plaintex", "rmarkdown", "rmd" },
 }
