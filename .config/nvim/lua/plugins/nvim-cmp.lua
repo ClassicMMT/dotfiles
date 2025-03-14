@@ -54,6 +54,7 @@ return {
     local luasnip = require "luasnip"
     local lspkind = require "lspkind"
     local types = require "cmp.types"
+    local cmp_r = require "cmp_r"
 
     require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -67,6 +68,8 @@ return {
     }
 
     -- luasnip.setup {}
+
+    cmp_r.setup {}
 
     -- for de-priorotising snippets, text and keywords
     local function deprioritise(kind)

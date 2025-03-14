@@ -42,8 +42,8 @@ local keymaps = {
 M = {
   "R-nvim/R.nvim",
   lazy = false,
-  -- version = "~0.1.0",
-  branch = "feature/improve-chunk-handling",
+  version = "~0.1.0",
+  -- branch = "feature/improve-chunk-handling",
   keys = keymaps,
 
   config = function()
@@ -117,7 +117,7 @@ M = {
       opts.objbr_auto_start = true
     end
     require("r").setup(opts)
-    require("cmp_r").setup {}
+    -- require("cmp_r").setup {}
 
     vim.g.R_filetypes = {
       "r",
