@@ -12,7 +12,7 @@ map("i", "<S-CR>", "<ESC>o")
 -- Don't leave visual mode when changing indent or yank
 map("x", ">", ">gv", { noremap = true })
 map("x", "<", "<gv", { noremap = true })
-map("v", "y", "ygv", { noremap = true })
+-- map("v", "y", "ygv", { noremap = true })
 
 -- Remap $ and ^
 map({ "n", "x" }, "H", "^")
@@ -48,7 +48,7 @@ map("n", "''", "gcc", { desc = "toggle comment", remap = true })
 map("v", "''", "gc", { desc = "toggle comment", remap = true })
 
 -- Allow ciw da( etc for other symbols
-local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?", "$" }
+local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?", "$", "=" }
 for _, char in ipairs(chars) do
   for _, mode in ipairs { "x", "o" } do
     vim.api.nvim_set_keymap(
@@ -65,6 +65,13 @@ for _, char in ipairs(chars) do
     )
   end
 end
+
+-- Allow cil val to better copy lines
+map("x", "il", "g_o^o", { noremap = true })
+map("o", "il", ':<C-u>exe "normal v" .. v:count1 .. "il"<CR>', { noremap = true, silent = true, expr = true })
+
+map("x", "al", "g_o0o", { noremap = true })
+map("o", "al", ':<C-u>exe "normal v" .. v:count1 .. "al"<CR>', { noremap = true, silent = true, expr = true })
 
 -- get buffer path
 map({ "n", "v" }, "<leader>gb", function()
