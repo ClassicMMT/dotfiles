@@ -25,6 +25,17 @@ return {
     t "}",
   }),
 
+  s({
+    trig = ";j",
+    snippetType = "autosnippet",
+    desc = "equation",
+    wordTrig = false,
+  }, {
+    t { "$$", "" },
+    i(1),
+    t { "", "$$" },
+  }),
+
   -- autosnippets
   s({ trig = ";a", snippetType = "autosnippet", desc = "alpha", wordTrig = false }, { t "\\alpha" }),
   s({ trig = ";A", snippetType = "autosnippet", desc = "Alpha", wordTrig = false }, { t "A" }),
