@@ -1,6 +1,4 @@
 return {
-  -- { "stevearc/dressing.nvim", event = "VeryLazy" },
-
   {
     "gbprod/cutlass.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -8,6 +6,31 @@ return {
       cut_key = "m",
       exclude = { "ns", "nS" },
     },
+  },
+
+  {
+    "toppair/peek.nvim",
+    event = { "VeryLazy" },
+    -- brew install deno
+    build = "deno task --quiet build:fast",
+    config = function()
+      require("peek").setup {
+        auto_load = true,
+        close_on_bdelete = true,
+        syntax = true, -- may impact performance
+        theme = "dark",
+        update_on_change = true,
+        app = "webview", -- webview or browser
+        filetype = { "markdown", "rmd" },
+        throttle_at = 200000,
+        throttle_time = "auto",
+      }
+      vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+      vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+
+      local map = vim.keymap.set
+      map("n", "<leader>po", "<CMD>PeekOpen<CR>", {})
+    end,
   },
 
   {
@@ -35,15 +58,17 @@ return {
     event = "VeryLazy",
     opts = {
       -- q and p labels removed
-      labels = "asdfghjklwertyuiozxcvbnm",
+      labels = "asdfghjklwertuiozxcvbnm",
       modes = {
         char = {
-          -- enabled = false,
+          enabled = true,
           -- multiline = false,
           jump_labels = true,
+          highlight = { backdrop = false },
           -- jump = {
           --   autojump = true,
           -- },
+          autohide = true,
         },
       },
     },
