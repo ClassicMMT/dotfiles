@@ -65,23 +65,51 @@ return {
     -- make the CR mapping function properly
     local map = vim.keymap.set
 
-    map("n", "<CR>", function()
-      -- safely call core.send_line
-      local status, _ = pcall(core.send_line)
+    local function call_with_fallback(f, fallback)
+      -- safely call f
+      local status, _ = pcall(f)
       -- if the call fails, then simulate a standard CR press
       if not status then
         -- "\r" is the <CR> key
-        vim.api.nvim_feedkeys("\r", "n", true)
-        -- return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", true)
+        -- vim.api.nvim_feedkeys(fallback or "\r", "n", true)
+        return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(fallback or "<CR>", true, false, true), "n", true)
       end
+    end
+
+    local function move_to_next_non_blank_line(end_line)
+      local line_number = end_line or vim.fn.line "."
+      local line_count = vim.api.nvim_buf_line_count(0)
+      -- local buf = vim.api.nvim_get_current_buf()
+
+      line_number = line_number + 1
+      -- if the line is empty or a comment, find the next line
+      while line_number <= line_count do
+        local line = vim.api.nvim_buf_get_lines(0, line_number - 1, line_number, false)[1]
+        if line:match "%S" and not line:match "^%s*#" then
+          vim.api.nvim_win_set_cursor(0, { line_number, 0 })
+          return
+        end
+        line_number = line_number + 1
+      end
+    end
+
+    map("n", "<CR>", function()
+      call_with_fallback(core.send_line)
     end, { noremap = true, silent = true })
 
     map("v", "<CR>", function()
-      local status, _ = pcall(core.visual_send)
-      if not status then
-        vim.api.nvim_feedkeys("\r", "n", true)
-        -- return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", true)
-      end
+      call_with_fallback(core.visual_send)
+    end, { noremap = true, silent = true })
+
+    map("n", "<S-CR>", function()
+      call_with_fallback(core.send_line, "<S-CR>")
+      move_to_next_non_blank_line()
+    end, { noremap = true, silent = true })
+
+    map("v", "<S-CR>", function()
+      call_with_fallback(core.visual_send, "<S-CR>")
+      move_to_next_non_blank_line(vim.fn.getpos("'>")[2])
+      -- move_to_next_non_blank_line()
     end, { noremap = true, silent = true })
   end,
 }
