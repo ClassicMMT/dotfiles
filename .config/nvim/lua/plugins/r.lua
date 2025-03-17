@@ -117,7 +117,7 @@ M = {
       opts.objbr_auto_start = true
     end
     require("r").setup(opts)
-    -- require("cmp_r").setup {}
+    require("cmp_r").setup {}
 
     vim.g.R_filetypes = {
       "r",
