@@ -1,14 +1,13 @@
 -- ~/.config/nvim/lua/snippets/init.lua
 local ls = require "luasnip"
+-- R snippets for both 'r' and 'rmd' filetypes
+local r_snippets = require "snippets.r"
+local rmd_snippets = require "snippets.rmd"
+local lua_snippets = require "snippets.lua"
+local tex_snippets = require "snippets.tex"
 
 -- Load snippets from lua files
 local load_snippets = function()
-  -- R snippets for both 'r' and 'rmd' filetypes
-  local r_snippets = require "snippets.r"
-  local rmd_snippets = require "snippets.rmd"
-  local lua_snippets = require "snippets.lua"
-  local tex_snippets = require "snippets.tex"
-
   ls.add_snippets("tex", tex_snippets)
 
   ls.add_snippets("rmd", rmd_snippets)
@@ -18,6 +17,35 @@ local load_snippets = function()
 
   ls.add_snippets("lua", lua_snippets)
 end
+
+-- OTHER CUSTOM BEHAVIOUR
+
+-- insert r code chunk with opt + ctrl + i
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "rmd" },
+  callback = function()
+    local map = vim.keymap.set
+
+    -- Create R code chunk with opt + ctrl + i
+    map({ "i", "n" }, "<A-C-i>", function()
+      ls.snip_expand(rmd_snippets.r_chunk)
+    end)
+
+    -- Wrap selection in R code chunk with opt + ctrl + i in visual mode
+    map("v", "<A-C-i>", function()
+      -- yank text to z register
+      vim.cmd 'silent normal! "zy'
+      -- reselect the text and delete it to the black hole register
+      vim.cmd 'silent normal! gv"_d'
+      -- expand code chunk
+      ls.snip_expand(rmd_snippets.r_chunk_visual)
+      -- exit insert mode
+      vim.cmd "stopinsert"
+      -- paste text
+      vim.cmd 'normal! "zP>'
+    end, { buffer = true })
+  end,
+})
 
 return {
   load = load_snippets,

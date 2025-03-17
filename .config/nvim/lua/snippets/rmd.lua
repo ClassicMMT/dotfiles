@@ -16,15 +16,12 @@ return {
     i(0),
     t { "", "```" },
   }),
-  -- s({ trig = ";a", snippetType = "autosnippet", desc = "alpha", wordTrig = false }, { t "\\alpha" }),
-  --
-  -- r_chunk_visual = s({
-  --   trig = "chunk",
-  --   name = "R Markdown Chunk",
-  --   dscr = "Wrap selected text in an R code chunk",
-  -- }, {
-  --   t { "```{r}", "" },
-  --   i(1, { "" }), -- Placeholder for the selected text
-  --   t { "", "```" },
-  -- }),
+
+  r_chunk_visual = s({
+    trig = "chunk",
+    name = "R Markdown Chunk",
+    dscr = "Insert an R code chunk",
+  }, {
+    t { "```{r}", "```" },
+  }),
 }
