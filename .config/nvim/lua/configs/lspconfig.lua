@@ -99,7 +99,6 @@ lspconfig.ts_ls.setup {
   },
 }
 
--- NOT USED ANYMORE
 -- configuring r language server - might need to run "install.packages('languageserver')"
 -- lspconfig.r_language_server.setup {
 --   cmd = { "R", "--no-save", "--no-restore", "-e", "languageserver::run()" },
@@ -150,7 +149,7 @@ lspconfig.basedpyright.setup {
           reportUnusedVariable = "none",
           reportUnusedCallResult = "none",
           reportDuplicateImport = "warning",
-          reportPrivateUsage = "warning",
+          reportPrivateUsage = "none",
           reportConstantRedefinition = "error",
           reportIncompatibleMethodOverride = "error",
           reportMissingImports = "error",
