@@ -12,9 +12,9 @@ return {
     name = "R Markdown Chunk",
     dscr = "Insert an R code chunk",
   }, {
-    t { "```{r}", "" },
+    t { "", "```{r}", "" },
     i(0),
-    t { "", "```" },
+    t { "", "```", "" },
   }),
 
   r_chunk_visual = s({
@@ -23,5 +23,15 @@ return {
     dscr = "Insert an R code chunk",
   }, {
     t { "```{r}", "```" },
+  }),
+
+  r_chunk_inverted = s({
+    trig = "chunk",
+    name = "R Markdown Chunk",
+    dscr = "Insert an R code chunk",
+  }, {
+    t { "```", "", "" },
+    i(0),
+    t { "", "", "```{r}" },
   }),
 }
