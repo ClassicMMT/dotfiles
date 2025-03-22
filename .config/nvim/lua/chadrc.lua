@@ -42,6 +42,13 @@ M.base46 = {
       bg = "NONE",
       italic = true,
     },
+
+    -- change matching parantheses colours
+    MatchWord = {
+      bg = "#e0e0e0",
+      fg = "#000000",
+      bold = true,
+    },
   },
 }
 
