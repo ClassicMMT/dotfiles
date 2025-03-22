@@ -107,7 +107,7 @@ M = {
       objbr_openlist = false,
       objbr_place = "console,below",
       assignment_keymap = "++",
-      pipe_keymap = "--",
+      pipe_keymap = "__",
       pipe_version = "magrittr",
       pdfviewer = "",
     }
