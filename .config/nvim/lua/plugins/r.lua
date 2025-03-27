@@ -1,3 +1,4 @@
+local unpack = unpack or table.unpack
 local keymaps = {
   -- Use "RMapsDesc" to get a list of all R keybindings
   -- Use <localleader>ro to open object browser
@@ -39,6 +40,89 @@ local keymaps = {
   },
 }
 
+local function check_if_inside_r_chunk()
+  -- returns true and coordinates if inside r chunk, otherwise returns false
+  local cursor_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local chunk_start_row, chunk_end_row
+  local up_row, down_row = cursor_row, cursor_row
+  local line_count = vim.api.nvim_buf_line_count(0)
+
+  while not chunk_start_row and up_row > 0 do
+    local line = vim.fn.getline(up_row)
+    if line:match "^```{r.+" then
+      chunk_start_row = up_row
+    elseif line:match "^```$" and up_row ~= cursor_row then
+      return { false }
+    end
+    up_row = up_row - 1
+  end
+
+  while not chunk_end_row and down_row < line_count do
+    local line = vim.fn.getline(down_row)
+    if line:match "^```{r.+" and down_row ~= cursor_row then
+      return { false }
+    elseif line:match "^```$" then
+      chunk_end_row = down_row
+    end
+    down_row = down_row + 1
+  end
+
+  return { true, chunk_start_row, chunk_end_row }
+end
+
+local function visual_select_rows(start_row, end_row, cursor_column)
+  -- set visual selection range
+  vim.api.nvim_win_set_cursor(0, { start_row, cursor_column or 0 })
+  vim.cmd "normal! V"
+  vim.api.nvim_win_set_cursor(0, { end_row, cursor_column or 0 })
+end
+
+local function select_inside_chunk()
+  local inside_chunk, chunk_start_row, chunk_end_row = unpack(check_if_inside_r_chunk())
+  -- restores the cursor position
+  local _, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+  if inside_chunk then
+    visual_select_rows(chunk_start_row + 1, chunk_end_row - 1, cursor_col)
+    return true
+  end
+end
+
+local function select_around_chunk()
+  local inside_chunk, chunk_start_row, chunk_end_row = unpack(check_if_inside_r_chunk())
+  -- restores the cursor position
+  local _, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+  if inside_chunk then
+    visual_select_rows(chunk_start_row, chunk_end_row, cursor_col)
+    return true
+  end
+end
+
+local function change_inside_chunk()
+  local status = select_inside_chunk()
+  if status then
+    -- vim.cmd "normal! c"
+    -- vim.api.nvim_feedkeys("c", "n", true)
+    vim.api.nvim_input "c"
+  end
+end
+
+local function change_around_chunk()
+  local status = select_around_chunk()
+  if status then
+    -- vim.cmd "normal! c"
+    -- vim.api.nvim_feedkeys("c", "n", true)
+    vim.api.nvim_input "c"
+  end
+end
+
+local function delete_chunk()
+  local inside_chunk, chunk_start_row, chunk_end_row = unpack(check_if_inside_r_chunk())
+  if inside_chunk then
+    vim.api.nvim_buf_set_lines(0, chunk_start_row - 1, chunk_end_row, false, {})
+    vim.api.nvim_win_set_cursor(0, { chunk_start_row, 0 })
+  end
+end
+
 M = {
   "R-nvim/R.nvim",
   lazy = false,
@@ -51,6 +135,8 @@ M = {
       hook = {
         on_filetype = function()
           local map = vim.api.nvim_buf_set_keymap
+          local keymap = vim.keymap.set
+
           -- send
           map(0, "n", "<Enter>", "<Plug>RSendLine", {})
           map(0, "n", "<S-Enter>", "<Plug>RDSendLine", {})
@@ -70,6 +156,20 @@ M = {
           map(0, "n", "<BS>wq", "<Cmd>lua require('r.send').cmd('dev.off()')<CR>", { noremap = true })
           -- close
           map(0, "n", "<BS>rq", "<CMD>lua require('r.run').quit_R('nosave')<CR>", { desc = "R Close" })
+          map(0, "n", "gn", "<CMD>lua require('r.rmd').next_chunk()<CR>", { desc = "Next chunk" })
+          map(0, "n", "gN", "<CMD>lua require('r.rmd').previous_chunk()<CR>", { desc = "Next chunk" })
+
+          vim.api.nvim_create_autocmd("FileType", {
+            pattern = "rmd",
+            callback = function()
+              local opts = { noremap = true, silent = true, buffer = true }
+              keymap("n", "vic", select_inside_chunk, opts)
+              keymap("n", "vac", select_around_chunk, opts)
+              keymap("n", "cic", change_inside_chunk, opts)
+              keymap("n", "cac", change_around_chunk, opts)
+              keymap("n", "<BS>dc", delete_chunk, opts)
+            end,
+          })
         end,
       },
 
