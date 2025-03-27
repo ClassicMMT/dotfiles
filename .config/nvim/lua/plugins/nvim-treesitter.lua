@@ -49,6 +49,7 @@ return {
       -- selects start with v. For example: va=
       select = {
         enable = true,
+        -- disable = { "rmd" },
 
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
@@ -60,12 +61,6 @@ return {
           ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
           ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
           ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
-
-          -- -- works for javascript/typescript files (custom capture I created in after/queries/ecma/textobjects.scm)
-          -- ["a:"] = { query = "@property.outer", desc = "Select outer part of an object property" },
-          -- ["i:"] = { query = "@property.inner", desc = "Select inner part of an object property" },
-          -- ["l:"] = { query = "@property.lhs", desc = "Select left part of an object property" },
-          -- ["r:"] = { query = "@property.rhs", desc = "Select right part of an object property" },
 
           -- arguments
           ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
