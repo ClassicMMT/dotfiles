@@ -1,14 +1,5 @@
 return {
   {
-    "gbprod/cutlass.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      cut_key = "m",
-      exclude = { "ns", "nS" },
-    },
-  },
-
-  {
     "toppair/peek.nvim",
     event = { "VeryLazy" },
     -- brew install deno
@@ -34,6 +25,17 @@ return {
   },
 
   {
+    "gbprod/cutlass.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+
+      cut_key = "m",
+      -- keys used  by flash.nvim
+      exclude = { "ns", "nS" },
+    },
+  },
+
+  {
     "nvim-telescope/telescope-frecency.nvim",
     version = "*",
     config = function()
@@ -42,14 +44,6 @@ return {
         auto_validate = true,
         ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store" },
       }
-    end,
-  },
-
-  {
-    "andymass/vim-matchup",
-    event = "BufReadPre",
-    init = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   },
 
@@ -79,13 +73,6 @@ return {
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
-
-  {
-    "szw/vim-maximizer",
-    keys = {
-      { "<leader>mt", "<cmd>MaximizerToggle<CR>", desc = "Maximizer" .. " Split maximiser toggle" },
     },
   },
 
@@ -121,6 +108,21 @@ return {
         },
       }
     end,
+  },
+
+  {
+    "andymass/vim-matchup",
+    event = "BufReadPre",
+    init = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
+
+  {
+    "szw/vim-maximizer",
+    keys = {
+      { "<leader>mt", "<cmd>MaximizerToggle<CR>", desc = "Maximizer" .. " Split maximiser toggle" },
+    },
   },
 
   {
