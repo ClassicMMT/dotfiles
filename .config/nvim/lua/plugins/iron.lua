@@ -163,7 +163,7 @@ return {
       -- return false
     end
 
-    local function select_expression_statement(range)
+    local function visual_select_range(range)
       -- local unpack = unpack or table.unpack
       local start_row, start_col, end_row, end_col = unpack(range)
       -- set visual selection range
@@ -189,7 +189,7 @@ return {
       if found then
         -- save the cursor position
         local cursor_row, cursor_column = unpack(get_cursor_position())
-        select_expression_statement(range)
+        visual_select_range(range)
         call_with_fallback(core.visual_send)
         restore_cursor_position(cursor_row, cursor_column)
       else
@@ -200,7 +200,7 @@ return {
     map("n", "<S-CR>", function()
       local found, range = get_top_level_node_range()
       if found then
-        select_expression_statement(range)
+        visual_select_range(range)
         call_with_fallback(core.visual_send, "<S-CR>")
       else
         call_with_fallback(core.send_line)
