@@ -115,11 +115,59 @@ local function change_around_chunk()
   end
 end
 
-local function delete_chunk()
+local function delete_around_chunk()
   local inside_chunk, chunk_start_row, chunk_end_row = unpack(check_if_inside_r_chunk())
   if inside_chunk then
     vim.api.nvim_buf_set_lines(0, chunk_start_row - 1, chunk_end_row, false, {})
     vim.api.nvim_win_set_cursor(0, { chunk_start_row, 0 })
+  end
+end
+
+local function delete_inside_chunk()
+  local inside_chunk, chunk_start_row, chunk_end_row = unpack(check_if_inside_r_chunk())
+  if inside_chunk then
+    vim.api.nvim_buf_set_lines(0, chunk_start_row, chunk_end_row - 1, false, { "" })
+    vim.api.nvim_win_set_cursor(0, { chunk_start_row + 1, 0 })
+  end
+end
+
+local function find_argument_range()
+  local utils = require "nvim-treesitter.ts_utils"
+  local node = utils.get_node_at_cursor()
+
+  -- find the parent argument node
+  while node:type() ~= "argument" do
+    if node:type() == "arguments" then
+      -- edge case - cursor is in a space between arguments
+      return { nil, nil, nil, nil }
+    end
+    node = node:parent()
+  end
+
+  local start_row, start_col, end_row, end_col = node:range()
+  return { start_row + 1, start_col, end_row + 1, end_col }
+end
+
+local function select_range(start_row, start_col, end_row, end_col)
+  vim.api.nvim_win_set_cursor(0, { start_row, start_col })
+  vim.cmd "normal! v"
+  vim.api.nvim_win_set_cursor(0, { end_row, end_col })
+  return true
+end
+
+local function delete_inside_argument()
+  local start_row, start_col, end_row, end_col = unpack(find_argument_range())
+  if start_row then
+    select_range(start_row, start_col, end_row, end_col - 1)
+    vim.cmd "normal! d"
+  end
+end
+
+local function change_inside_argument()
+  local start_row, start_col, end_row, end_col = unpack(find_argument_range())
+  if start_row then
+    select_range(start_row, start_col, end_row, end_col - 1)
+    vim.api.nvim_input "c"
   end
 end
 
@@ -167,7 +215,10 @@ M = {
               keymap("n", "vac", select_around_chunk, opts)
               keymap("n", "cic", change_inside_chunk, opts)
               keymap("n", "cac", change_around_chunk, opts)
-              keymap("n", "<BS>dc", delete_chunk, opts)
+              keymap("n", "dic", delete_inside_chunk, opts)
+              keymap("n", "dac", delete_around_chunk, opts)
+              keymap("n", "dia", delete_inside_argument, opts)
+              keymap("n", "cia", change_inside_argument, opts)
             end,
           })
         end,
@@ -196,7 +247,7 @@ M = {
       auto_quit = true,
       silent_term = true,
       -- external_term = "kitty", -- linux only
-      -- user_maps_only = true, -- removes all default keybindings and keeps only user ones
+      user_maps_only = true, -- removes all default keybindings and keeps only user ones
       -- applescript = true,
       applescript = false,
       Rout_more_colors = true,
