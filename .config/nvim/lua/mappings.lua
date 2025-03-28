@@ -67,11 +67,9 @@ for _, char in ipairs(chars) do
 end
 
 -- Allow cil val to better copy lines
-map("x", "il", "g_o^o", { noremap = true })
-map("o", "il", ':<C-u>exe "normal v" .. v:count1 .. "il"<CR>', { noremap = true, silent = true, expr = true })
-
-map("x", "al", "g_o0o", { noremap = true })
-map("o", "al", ':<C-u>exe "normal v" .. v:count1 .. "al"<CR>', { noremap = true, silent = true, expr = true })
+map({ "n" }, "yl", function()
+  return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("0y$", true, false, true), "n", true)
+end, { noremap = true, silent = true, expr = true })
 
 -- get buffer path
 map({ "n", "v" }, "<leader>gb", function()
