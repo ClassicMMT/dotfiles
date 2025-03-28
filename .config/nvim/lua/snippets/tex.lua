@@ -25,6 +25,12 @@ return {
     t "}",
   }),
 
+  s("sqrt", {
+    t "\\sqrt{",
+    i(1),
+    t "}",
+  }),
+
   s({
     trig = ";j",
     snippetType = "autosnippet",
