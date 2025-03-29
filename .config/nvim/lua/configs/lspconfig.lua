@@ -170,4 +170,7 @@ lspconfig.basedpyright.setup {
 
 lspconfig.texlab.setup {
   filetypes = { "tex", "plaintex", "rmarkdown", "rmd" },
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
 }
