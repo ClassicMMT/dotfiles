@@ -31,6 +31,12 @@ return {
     t "}",
   }),
 
+  s("text", {
+    t "\\text{",
+    i(1),
+    t "}",
+  }),
+
   s({
     trig = ";j",
     snippetType = "autosnippet",
