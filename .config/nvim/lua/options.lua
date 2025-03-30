@@ -36,6 +36,9 @@ options.foldenable = false
 -- inlay hints
 vim.lsp.inlay_hint.enable(true)
 
+-- diagnostics for current line (nvim >= 0.11)
+vim.diagnostic.config { virtual_text = { current_line = true } }
+
 -- -- enable python provider - Necessary for molten.nvim
 -- local enable_providers = {
 --   "python3_provider",
