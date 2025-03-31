@@ -1,3 +1,4 @@
+local cmp = require "cmp"
 return {
   -- modified from: ~/.local/share/nvim/lazy/NvChad/lua/nvchad
   "windwp/nvim-autopairs",
@@ -19,6 +20,22 @@ return {
 
     -- setup cmp for autopairs
     local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-    require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    require("cmp").event:on(
+      "confirm_done",
+      cmp_autopairs.on_confirm_done {
+        -- custom config - stops autopairs from inserting brackets after function calls in python
+        filetypes = {
+          ["python"] = {
+            ["("] = {
+              kind = {
+                cmp.lsp.CompletionItemKind.Function,
+                cmp.lsp.CompletionItemKind.Method,
+              },
+              handler = function() end,
+            },
+          },
+        },
+      }
+    )
   end,
 }
