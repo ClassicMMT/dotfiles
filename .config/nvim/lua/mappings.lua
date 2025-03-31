@@ -47,6 +47,10 @@ map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 map("n", "''", "gcc", { desc = "toggle comment", remap = true })
 map("v", "''", "gc", { desc = "toggle comment", remap = true })
 
+-- Remap some nvim 0.11 mappings
+map("n", "[<CR>", "[<space>", { desc = "Add empty line above" })
+map("n", "]<CR>", "]<space>", { desc = "Add empty line before" })
+
 -- Allow ciw da( etc for other symbols
 local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?", "$", "=" }
 for _, char in ipairs(chars) do
@@ -187,9 +191,10 @@ map("n", "<leader>fs", "<cmd>Telescope live_grep<CR>", { desc = "telescope live 
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
 -- map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
--- map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
+-- map("n", "<leader>fb", "<cmd>telescope buffers<CR>", { desc = "telescope find buffers" })
 map("n", "<leader>fb", function()
-  require("telescope.builtin").buffers { initial_mode = "normal" }
+  -- require("telescope.builtin").buffers { initial_mode = "normal" }
+  require("telescope.builtin").buffers()
 end, { desc = "telescope find buffers" })
 -- map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
 
