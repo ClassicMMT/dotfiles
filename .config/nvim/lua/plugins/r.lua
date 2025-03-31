@@ -206,6 +206,8 @@ M = {
           map(0, "n", "<BS>rq", "<CMD>lua require('r.run').quit_R('nosave')<CR>", { desc = "R Close" })
           map(0, "n", "gn", "<CMD>lua require('r.rmd').next_chunk()<CR>", { desc = "Next chunk" })
           map(0, "n", "gN", "<CMD>lua require('r.rmd').previous_chunk()<CR>", { desc = "Next chunk" })
+          -- inserts chunk
+          map(0, "n", "<A-C-i>", "<CMD>lua require('r.rmd').write_chunk()<CR>", { desc = "Insert Chunk" })
 
           vim.api.nvim_create_autocmd("FileType", {
             pattern = "rmd",
