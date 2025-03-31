@@ -107,6 +107,9 @@ return {
         "expression_statement",
         "function_definition",
         "class_definition",
+        "if_statement",
+        "for_statement",
+        "while_statement",
       }
       for _, v in ipairs(allowed_types) do
         if v == type then
