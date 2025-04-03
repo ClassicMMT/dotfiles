@@ -10,6 +10,9 @@ local options = {
     -- python = { "isort" },
     json = { "prettier" },
     javascript = { "prettier" },
+    -- install in R: install.packages("styler")
+    r = { "styler" },
+    rmd = { "styler" },
   },
 
   formatters = {
