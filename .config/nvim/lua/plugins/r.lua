@@ -1,44 +1,7 @@
 local unpack = unpack or table.unpack
-local keymaps = {
-  -- Use "RMapsDesc" to get a list of all R keybindings
-  -- Use <localleader>ro to open object browser
-  -- all keymaps found here: https://github.com/R-nvim/R.nvim/blob/7b90a8898f88b71bcd3c8c19a05439398c421ac8/lua/r/maps.lua#L103
-  {
-    "<BS>rs",
-    function()
-      require("r.run").start_R "R"
-    end,
-    desc = "Start R",
-  },
-  {
-    "<BS>ro",
-    function()
-      require("r.browser").start()
-    end,
-    desc = "Toggle Object Browser",
-  },
-  {
-    "<BS>rh",
-    function()
-      require("r.run").action "help"
-    end,
-    desc = "Help",
-  },
-  {
-    "<BS>su",
-    function()
-      require("r.send").above_lines()
-    end,
-    desc = "Send Lines Above",
-  },
-  {
-    "<BS>sf",
-    function()
-      require("r.send").source_file()
-    end,
-    desc = "Send File",
-  },
-}
+-- Use "RMapsDesc" to get a list of all R keybindings
+-- Use "RConfigShow" to see full config
+-- all keymaps found here: https://github.com/R-nvim/R.nvim/blob/7b90a8898f88b71bcd3c8c19a05439398c421ac8/lua/r/maps.lua#L103
 
 local function check_if_inside_r_chunk()
   -- returns true and coordinates if inside r chunk, otherwise returns false
@@ -174,41 +137,66 @@ end
 M = {
   "R-nvim/R.nvim",
   lazy = false,
-  version = "~0.1.0",
-  -- branch = "feature/improve-chunk-handling",
-  keys = keymaps,
+  -- version = "~0.1.0",
+  -- keys = keymaps,
 
   config = function()
     local opts = {
       hook = {
         on_filetype = function()
+          vim.g.rout_follow_colorscheme = true
+
           local map = vim.api.nvim_buf_set_keymap
           local keymap = vim.keymap.set
 
+          -- general
+          map(0, "n", "<BS>rs", "<Plug>RStart", { desc = "Start R" })
+          map(0, "n", "<BS>ro", "<Plug>ROBToggle", { desc = "Toggle object browser" })
+          map(0, "n", "<BS>rh", "<Plug>RHelp", { desc = "Help" })
+          map(0, "n", "<BS>re", "<Plug>RShowEx", { desc = "Show example" })
+          map(0, "n", "<BS>ra", "<Plug>RShowArgs", { desc = "Show args" })
+          map(0, "i", "__", "<Plug>RInsertAssign", {})
+          map(0, "i", "++", "<Plug>RInsertPipe", {})
+
           -- send
-          map(0, "n", "<Enter>", "<Plug>RSendLine", {})
-          map(0, "n", "<S-Enter>", "<Plug>RDSendLine", {})
-          map(0, "v", "<Enter>", "<Plug>RSendSelection", {})
+          map(0, "n", "<Enter>", "<Plug>RSendLine", { desc = "Send line" })
+          map(0, "n", "<S-Enter>", "<Plug>RDSendLine", { desc = "Send line and move" })
+          map(0, "v", "<Enter>", "<Plug>RSendSelection", { desc = "Send selection" })
+          map(0, "n", "<BS>sm", "<Plug>RSendCurrentFun", { desc = "Send current function" })
+          map(0, "n", "<BS>Sm", "<Plug>RSendCurrentFun", { desc = "Send current function and move" })
+          map(0, "n", "<BS>su", "<Plug>RSendAboveLines", { desc = "Send above lines" })
+          map(0, "n", "<BS>sf", "<Plug>RSendFile", { desc = "Send file" })
+
+          -- rmd
+          map(0, "n", "<BS>sc", "<Plug>RSendChunk", { desc = "Send chunk" })
+          map(0, "n", "<BS>sa", "<Plug>RSendChunkFH", { desc = "Run above chunks" })
+          map(0, "n", "gn", "<Plug>RNextRChunk", { desc = "Next chunk" })
+          map(0, "n", "gN", "<Plug>RPreviousRChunk", { desc = "Previous Chunk" })
+          map(0, "n", "<BS>k", "<Plug>RMakeRmd", { desc = "Knit rmd" })
+
+          -- action
+          map(0, "n", "<BS>h", "<Cmd>lua require('r.run').action('head')<CR>", {})
+
+          -- close device
           map(
             0,
             "n",
-            "<LocalLeader>gd",
-            "<cmd>lua require('r.send').cmd('tryCatch(httpgd::hgd_browse(),error=function(e) {httpgd::hgd();httpgd::hgd_browse()})')<CR>",
-            { desc = "httpgd" }
+            "<BS>dc",
+            "<Cmd>lua require('r.send').cmd('dev.off()')<CR>",
+            { desc = "Close device", noremap = true }
           )
-          -- rmd
-          map(0, "n", "<BS>sc", "<Plug>RSendChunk", {})
-          map(0, "n", "<BS>sa", "<CMD>lua require('r.send').chunks_up_to_here()<CR>", { desc = "Run Above Chunks" })
+          map(0, "n", "<BS>rq", "<Plug>RClose", { desc = "Close R" })
 
-          -- close device
-          map(0, "n", "<BS>wq", "<Cmd>lua require('r.send').cmd('dev.off()')<CR>", { noremap = true })
-          -- close
-          map(0, "n", "<BS>rq", "<CMD>lua require('r.run').quit_R('nosave')<CR>", { desc = "R Close" })
-          map(0, "n", "gn", "<CMD>lua require('r.rmd').next_chunk()<CR>", { desc = "Next chunk" })
-          map(0, "n", "gN", "<CMD>lua require('r.rmd').previous_chunk()<CR>", { desc = "Next chunk" })
-          -- inserts chunk
-          map(0, "n", "<A-C-i>", "<CMD>lua require('r.rmd').write_chunk()<CR>", { desc = "Insert Chunk" })
+          -- http device
+          -- map(
+          --   0,
+          --   "n",
+          --   "<LocalLeader>gd",
+          --   "<cmd>lua require('r.send').cmd('tryCatch(httpgd::hgd_browse(),error=function(e) {httpgd::hgd();httpgd::hgd_browse()})')<CR>",
+          --   { desc = "httpgd" }
+          -- )
 
+          -- custom mappings
           vim.api.nvim_create_autocmd("FileType", {
             pattern = "rmd",
             callback = function()
@@ -250,19 +238,24 @@ M = {
       silent_term = true,
       -- external_term = "kitty", -- linux only
       user_maps_only = true, -- removes all default keybindings and keeps only user ones
-      -- applescript = true,
-      applescript = false,
+      -- applescript = false,
       Rout_more_colors = true,
       objbr_allnames = false,
       objbr_auto_start = false,
       objbr_h = 10,
       objbr_opendf = false,
       objbr_openlist = false,
-      objbr_place = "console,below",
-      assignment_keymap = "++",
-      pipe_keymap = "__",
+      -- objbr_place = "console,below",
+      objbr_place = "console,above",
       pipe_version = "magrittr",
       pdfviewer = "",
+      quarto_chunk_hl = {
+        highlight = false, -- highlight code blocks
+        yaml_hl = true, -- highlight yaml
+        virtual_title = true,
+        -- bg = "#003010",
+        -- events = "BufEnter,TextChanged",
+      },
     }
 
     if vim.env.R_AUTO_START == "true" then
