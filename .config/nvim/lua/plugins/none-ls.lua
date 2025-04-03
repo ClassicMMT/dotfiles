@@ -14,16 +14,13 @@ return {
         "shfmt",
         "prettierd",
         "tinymist",
+        "vale",
       },
       automatic_installation = true,
     }
 
     local null_ls = require "null-ls"
     local sources = {
-      -- sorts imports
-      -- require("none-ls.formatting.ruff").with { extra_args = { "--extend-select" } },
-      -- formats the rest of the file
-      -- require "none-ls.formatting.ruff_format",
       null_ls.builtins.formatting.prettier.with {
         filetypes = {
           "json",
@@ -35,25 +32,9 @@ return {
       -- format shell scripts with 4-space indentations
       null_ls.builtins.formatting.shfmt.with { args = { "-i", "4" } },
       null_ls.builtins.formatting.black,
-      -- null_ls.builtins.diagnostics.mypy.with {
-      --   args = function(params)
-      --     return {
-      --       "--hide-error-codes",
-      --       "--hide-error-context",
-      --       "--no-color-output",
-      --       "--show-absolute-path",
-      --       "--show-column-numbers",
-      --       "--show-error-codes",
-      --       "--no-error-summary",
-      --       "--no-pretty",
-      --       params.temp_path,
-      --     }
-      --   end,
-      --   extra_args = function()
-      --     local virtual = os.getenv "VIRTUAL_ENV" or os.getenv "CONDA_PREFIX" or "/usr"
-      --     return { "--python-executable", virtual .. "/bin/python3" }
-      --   end,
-      -- },
+      null_ls.builtins.diagnostics.vale.with {
+        filetypes = { "markdown", "text", "rmd" },
+      },
     }
 
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
