@@ -32,6 +32,9 @@ map({ "n" }, "#", function()
   vim.cmd "nohl"
 end)
 
+-- open messages
+map("n", "<leader>mm", "<CMD>messages<CR>", { desc = "Show messages" })
+
 -- jump to and from terminal
 -- map("n", "<C-j>", "<C-w><C-w>")
 map("t", "<Esc>", "<C-\\><C-N>") -- exit insert mode
