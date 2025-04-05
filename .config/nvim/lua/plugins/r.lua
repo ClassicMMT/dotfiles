@@ -99,12 +99,16 @@ local function find_argument_range()
   local node = utils.get_node_at_cursor()
 
   -- find the parent argument node
-  while node:type() ~= "argument" do
+  while node and node:type() ~= "argument" do
     if node:type() == "arguments" then
       -- edge case - cursor is in a space between arguments
       return { nil, nil, nil, nil }
     end
     node = node:parent()
+  end
+
+  if not node then
+    return { nil, nil, nil, nil }
   end
 
   local start_row, start_col, end_row, end_col = node:range()
@@ -116,6 +120,28 @@ local function select_range(start_row, start_col, end_row, end_col)
   vim.cmd "normal! v"
   vim.api.nvim_win_set_cursor(0, { end_row, end_col })
   return true
+end
+
+local function identify_argument()
+  -- This function is NOT bullet proof and has only been tested for the case the arguments are on the same line
+  local line = vim.api.nvim_get_current_line()
+  local _, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+
+  -- check if first argument
+  local line_up_to_cursor = string.sub(line, 1, cursor_col)
+  local comma_pos = string.match(line_up_to_cursor, ".*(),.*")
+  if not comma_pos then
+    return "first"
+  end
+
+  -- check if last argument
+  local line_past_cursor = string.sub(line, cursor_col + 2)
+  comma_pos = string.match(line_past_cursor, ".*(),.*")
+  if not comma_pos then
+    return "last"
+  end
+
+  return "middle"
 end
 
 local function delete_inside_argument()
@@ -134,11 +160,45 @@ local function change_inside_argument()
   end
 end
 
+local function delete_around_argument()
+  local start_row, start_col, end_row, end_col = unpack(find_argument_range())
+  if start_row then
+    local argument_position = identify_argument()
+    if argument_position == "first" then
+      select_range(start_row, start_col, end_row, end_col + 1)
+    else
+      select_range(start_row, start_col - 2, end_row, end_col - 1)
+    end
+    vim.cmd "normal! d"
+  end
+end
+
+local function select_inside_argument()
+  local start_row, start_col, end_row, end_col = unpack(find_argument_range())
+  if start_row then
+    select_range(start_row, start_col, end_row, end_col - 1)
+  end
+end
+
+local function select_around_argument()
+  local start_row, start_col, end_row, end_col = unpack(find_argument_range())
+  if start_row then
+    local argument_position = identify_argument()
+    if argument_position == "first" then
+      select_range(start_row, start_col, end_row, end_col + 1)
+    -- logic for last and middle is identical
+    else
+      select_range(start_row, start_col - 2, end_row, end_col - 1)
+    end
+  end
+end
+
 M = {
   "R-nvim/R.nvim",
   lazy = false,
   -- version = "~0.1.0",
   -- keys = keymaps,
+  branch = "fix_rout_syn",
 
   config = function()
     local opts = {
@@ -207,7 +267,11 @@ M = {
               keymap("n", "cac", change_around_chunk, opts)
               keymap("n", "dic", delete_inside_chunk, opts)
               keymap("n", "dac", delete_around_chunk, opts)
+
+              keymap("n", "via", select_inside_argument, opts)
+              keymap("n", "vaa", select_around_argument, opts)
               keymap("n", "dia", delete_inside_argument, opts)
+              keymap("n", "daa", delete_around_argument, opts)
               keymap("n", "cia", change_inside_argument, opts)
             end,
           })
