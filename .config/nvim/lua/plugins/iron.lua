@@ -31,7 +31,7 @@ return {
               "--no-autoindent",
               "--colors=linux", -- NoColor, Neutral, Linux, or LightBG
               "--no-confirm-exit",
-              "--color-info",
+              -- "--color-info", -- deprecated
             },
             -- run "pip install ptpython" - otherwise, use the line above
             -- command = { "ptpython", "--vi" },
