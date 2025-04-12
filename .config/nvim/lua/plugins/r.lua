@@ -199,7 +199,6 @@ M = {
   -- version = "~0.1.0",
   -- keys = keymaps,
   branch = "fix_rout_syn",
-
   config = function()
     local opts = {
       hook = {
@@ -300,7 +299,7 @@ M = {
 
       auto_quit = true,
       silent_term = true,
-      -- external_term = "kitty", -- linux only
+      -- external_term = "default",
       user_maps_only = true, -- removes all default keybindings and keeps only user ones
       -- applescript = false,
       Rout_more_colors = true,
