@@ -150,7 +150,7 @@ lspconfig.basedpyright.setup {
           reportUnusedCallResult = "none",
           reportDuplicateImport = "warning",
           reportPrivateUsage = "none",
-          reportConstantRedefinition = "error",
+          reportConstantRedefinition = "none",
           reportIncompatibleMethodOverride = "error",
           reportMissingImports = "error",
           reportUndefinedVariable = "error",
