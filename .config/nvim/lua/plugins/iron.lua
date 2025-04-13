@@ -110,6 +110,7 @@ return {
         "if_statement",
         "for_statement",
         "while_statement",
+        "import_from_statement",
       }
       for _, v in ipairs(allowed_types) do
         if v == type then
