@@ -1,13 +1,42 @@
+-- Instructions for modifying the ipython theme:
+-- nvim /opt/miniconda3/envs/<CONDA_ENV_NAME>/lib/python3.13/site-packages/IPython//utils/PyColorize.py
+-- search for linux_theme and change highlighting
+-- before the theme_table, add the following and add '"my_theme":my_theme', to the theme_table.
+-- my_theme = Theme(
+--     "my_theme",
+--     "monokai",
+--     extra_style={
+--         Token.Comment: "#5c6379",
+--         Token.Keyword: "#c678dd",
+--         Token.Literal.String: "#98c379",
+--         Token.Literal.Number: "#d19a66",
+--         Token.Name.Builtin: "#61afef",
+--         Token.Name.Function: "#61afef",
+--         Token.Name.Class: "#e5c07b",
+--         Token.Operator: "#abb2bf",
+--         Token.Text: "#abb2bf",
+--         # Token.Text: "#61afef",
+--         Token.Name: "#61afef",
+--         Token.Variable: "#abb2bf",
+--         Token.Error: "#e06c75",
+--     },
+-- )
+
+-- However, the above does NOT actually remove the yellow highlighting. To do that, add to (if this doesn't exist, run "ipython profile create") ~/.ipython/profile_default/ipython_config.py the following:
+-- # https://stackoverflow.com/questions/70766518/how-to-change-ipython-error-highlighting-color
+-- try:
+--     from IPython.core import ultratb
+--
+--     ultratb.VerboseTB.tb_highlight = "bg:#333333"
+-- except Exception:
+--     print(
+--         "Error patching background color for tracebacks, they'll be the ugly default instead"
+--     )
+
 return {
   "Vigemus/iron.nvim",
   cmd = { "IronRepl" },
   ft = { "python" },
-  -- keys = {
-  --   { "<leader>rs", "<cmd>IronRepl<CR>", desc = "Start iron" },
-  --   { "<leader>rr", "<cmd>IronRestart<CR>", desc = "Restart iron" },
-  --   { "<leader>rf", "<cmd>IronFocus<CR>", desc = "Focus iron" },
-  --   { "<leader>rh", "<cmd>IronHide<CR>", desc = "Hide iron" },
-  -- },
   config = function()
     local core = require "iron.core"
     local view = require "iron.view"
@@ -29,9 +58,10 @@ return {
             command = {
               "ipython",
               "--no-autoindent",
-              "--colors=linux", -- NoColor, Neutral, Linux, or LightBG
+              -- "--colors=linux", -- NoColor, Neutral, Linux, or LightBG
+              "--colors=my_theme",
               "--no-confirm-exit",
-              -- "--color-info", -- deprecated
+              "--no-banner", -- removes startup banner
             },
             -- run "pip install ptpython" - otherwise, use the line above
             -- command = { "ptpython", "--vi" },
@@ -149,22 +179,6 @@ return {
       else
         return false, nil
       end
-
-      -- while node do
-      --   local node_type = node:type()
-      --   if
-      --     node_type == "expression_statement"
-      --     or node_type == "function_definition"
-      --     or node_type == "class_definition"
-      --   then
-      --     -- get node range
-      --     return true, { node:range() }
-      --   end
-      --   -- move to parent node
-      --   node = node:parent()
-      -- end
-      -- -- top node is not an expression statement
-      -- return false
     end
 
     local function visual_select_range(range)
