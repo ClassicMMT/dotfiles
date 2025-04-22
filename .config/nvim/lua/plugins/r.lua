@@ -216,6 +216,7 @@ M = {
           map(0, "n", "<BS>ra", "<Plug>RShowArgs", { desc = "Show args" })
           map(0, "i", "__", "<Plug>RInsertAssign", {})
           map(0, "i", "++", "<Plug>RInsertPipe", {})
+          map(0, "n", "<BS>cl", "<Plug>RClearConsole", { desc = "Clear console" })
 
           -- send
           map(0, "n", "<Enter>", "<Plug>RSendLine", { desc = "Send line" })
@@ -289,7 +290,7 @@ M = {
       --   end,
       -- },
       disable_cmds = {
-        "RClearConsole",
+        -- "RClearConsole",
         "RCustomStart",
         "RSPlot",
         "RSaveClose",
