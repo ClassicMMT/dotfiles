@@ -81,6 +81,7 @@ lspconfig.emmet_ls.setup {
 lspconfig.tinymist.setup {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
+  filetypes = { "typ" },
   settings = {
     formatterMode = "typstyle",
   },
@@ -129,7 +130,7 @@ lspconfig.basedpyright.setup {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
         autoImportCompletions = true,
-        diagnosticMode = "workspace", -- Options: openFilesOnly, workspace
+        diagnosticMode = "openFilesOnly", -- Options: openFilesOnly, workspace
         typeCheckingMode = "off", -- Options: off, basic, strict
         -- IMPORTANT INFO FOR STUBS:
         -- stubs should be installed globally (NOT in a virtual environment) so they can be used across environments
@@ -151,10 +152,10 @@ lspconfig.basedpyright.setup {
           reportDuplicateImport = "warning",
           reportPrivateUsage = "none",
           reportConstantRedefinition = "none",
-          reportIncompatibleMethodOverride = "error",
-          reportMissingImports = "error",
-          reportUndefinedVariable = "error",
-          reportAssertAlwaysTrue = "error",
+          -- reportIncompatibleMethodOverride = "error",
+          -- reportMissingImports = "error",
+          -- reportUndefinedVariable = "error",
+          -- reportAssertAlwaysTrue = "error",
         },
 
         inlayHints = {
