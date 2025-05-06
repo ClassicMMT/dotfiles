@@ -46,3 +46,6 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+-- temporary workaround for treesitter flickering
+vim.g._ts_force_sync_parsing = true
