@@ -12,7 +12,7 @@ return {
         theme = "dark",
         update_on_change = true,
         app = "webview", -- webview or browser
-        filetype = { "markdown", "rmd" },
+        filetype = { "markdown", "rmd", "tex" },
         throttle_at = 200000,
         throttle_time = "auto",
       }
@@ -51,13 +51,14 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {
-      -- q and p labels removed
-      labels = "asdfghjklwertuiozxcvbnm",
+      -- q, p, d, c labels removed
+      labels = "asfghjklwertuiozxvbnm",
       modes = {
         char = {
           enabled = true,
-          -- multiline = false,
+          multi_line = false,
           jump_labels = true,
+          label = { exclude = "hjkliadc" },
           highlight = { backdrop = false },
           -- jump = {
           --   autojump = true,
