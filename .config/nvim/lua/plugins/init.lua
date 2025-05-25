@@ -57,8 +57,8 @@ return {
         char = {
           enabled = true,
           multi_line = false,
-          jump_labels = true,
-          label = { exclude = "hjkliadc" },
+          jump_labels = false,
+          label = { exclude = "hjkliadcr" },
           highlight = { backdrop = false },
           -- jump = {
           --   autojump = true,
