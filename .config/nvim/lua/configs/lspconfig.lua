@@ -59,6 +59,7 @@ lspconfig.emmet_ls.setup {
   filetypes = {
     "css",
     "eruby",
+    "svg",
     "html",
     "javascript",
     "javascriptreact",
