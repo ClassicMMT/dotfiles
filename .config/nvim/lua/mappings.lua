@@ -14,6 +14,8 @@ map("x", ">", ">gv", { noremap = true })
 map("x", "<", "<gv", { noremap = true })
 -- map("v", "y", "ygv", { noremap = true })
 
+map("v", "p", "P", { noremap = true, silent = true })
+
 -- Remap $ and ^
 map({ "n", "x" }, "H", "^")
 map({ "n", "x" }, "L", "$")
