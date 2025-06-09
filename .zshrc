@@ -8,6 +8,7 @@ export PS1="~ "
 
 # Basic aliases
 alias nv="nvim"
+alias R="R --quiet --no-save"
 
 # Conda aliases
 alias cona="conda activate"
