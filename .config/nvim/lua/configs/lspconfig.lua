@@ -121,15 +121,15 @@ lspconfig.ts_ls.setup {
 -- this line is only needed for pyright - to deactivate import warnings
 -- nvlsp.capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
 lspconfig.basedpyright.setup {
-  filetypes = { "py" },
+  filetypes = { "python" },
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
   settings = {
     basedpyright = { -- change this line to python if going back to pyright
       analysis = {
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
+        autoSearchPaths = false,
+        useLibraryCodeForTypes = false,
         autoImportCompletions = true,
         diagnosticMode = "openFilesOnly", -- Options: openFilesOnly, workspace
         typeCheckingMode = "off", -- Options: off, basic, strict
@@ -138,7 +138,7 @@ lspconfig.basedpyright.setup {
         -- install from: https://github.com/microsoft/python-type-stubs
         -- find directory with: pip show microsoft-python-type-stubs
         stubPath = "/opt/miniconda3/lib/python3.12/site-packages",
-        logLevel = "Information", -- Options: Error, Warning, Information, Trace
+        logLevel = "Error", -- Options: Error, Warning, Information, Trace
         diagnosticSeverityOverrides = {
           strictListInference = true,
           strictDictionaryInference = true,
