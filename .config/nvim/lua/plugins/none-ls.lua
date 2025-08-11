@@ -4,7 +4,11 @@ return {
     "nvimtools/none-ls-extras.nvim",
     "jayp0521/mason-null-ls.nvim",
   },
-  event = { "BufReadPre", "BufNewfile", "BufEnter" },
+  event = {
+    "BufReadPre",
+    "BufNewfile",
+    -- "BufEnter", -- probably unnecessary
+  },
   ft = { "python" },
   config = function()
     require("mason-null-ls").setup {
@@ -21,7 +25,7 @@ return {
 
     local null_ls = require "null-ls"
     local sources = {
-      null_ls.builtins.formatting.prettier.with {
+      null_ls.builtins.formatting.prettierd.with {
         filetypes = {
           "json",
           "yaml",
