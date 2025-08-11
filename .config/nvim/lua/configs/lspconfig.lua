@@ -6,7 +6,7 @@ local lspconfig = require "lspconfig"
 -- EXAMPLE
 local servers = {
   "html",
-  "cssls",
+  -- "cssls",
   -- "pyright",
   "basedpyright",
   "ts_ls",
@@ -76,6 +76,17 @@ lspconfig.emmet_ls.setup {
         ["bem.enabled"] = true,
       },
     },
+  },
+}
+
+lspconfig.cssls.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    css = { validate = true },
+    less = { validate = true },
+    scss = { validate = true },
   },
 }
 
