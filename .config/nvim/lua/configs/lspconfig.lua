@@ -186,4 +186,10 @@ lspconfig.texlab.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
+  settings = {
+    texlab = {
+      build = { onSave = false }, -- disable auto-build for speed
+      forwardSearch = { executable = nil }, -- disable forward search unless needed
+    },
+  },
 }
