@@ -35,6 +35,7 @@ return {
 
       -- format shell scripts with 4-space indentations
       null_ls.builtins.formatting.shfmt.with { args = { "-i", "4" } },
+      -- python formatting. comment out to disable
       null_ls.builtins.formatting.black,
       null_ls.builtins.diagnostics.vale.with {
         filetypes = { "markdown", "text", "rmd" },
