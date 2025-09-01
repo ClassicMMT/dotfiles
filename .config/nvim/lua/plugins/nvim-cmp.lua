@@ -1,5 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
+  -- disabled = true,
   dependencies = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path", -- source for file system paths

@@ -195,10 +195,11 @@ end
 
 M = {
   "R-nvim/R.nvim",
+  enabled = false,
   lazy = false,
   -- version = "~0.1.0",
   -- keys = keymaps,
-  branch = "fix_rout_syn",
+  -- branch = "fix_rout_syn",
   config = function()
     local opts = {
       hook = {
