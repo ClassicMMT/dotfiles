@@ -195,7 +195,7 @@ end
 
 M = {
   "R-nvim/R.nvim",
-  enabled = false,
+  -- enabled = false,
   lazy = false,
   -- version = "~0.1.0",
   -- keys = keymaps,
