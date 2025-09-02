@@ -1,7 +1,8 @@
 -- Instructions for modifying the ipython theme:
+-- Note that this must be done for EVERY new virtual environment created
 -- nvim /opt/miniconda3/envs/<CONDA_ENV_NAME>/lib/python3.13/site-packages/IPython//utils/PyColorize.py
 -- search for linux_theme and change highlighting
--- before the theme_table, add the following and add '"my_theme":my_theme', to the theme_table.
+-- before the theme_table, add the following and add '"my_theme":my_theme', to the theme_table dictionary.
 -- my_theme = Theme(
 --     "my_theme",
 --     "monokai",
