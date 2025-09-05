@@ -140,7 +140,7 @@ lspconfig.basedpyright.setup {
     basedpyright = { -- change this line to python if going back to pyright
       analysis = {
         autoSearchPaths = false,
-        useLibraryCodeForTypes = false,
+        useLibraryCodeForTypes = false, -- SET TO FALSE FOR LARGE FILES. IMPACTS PERFORMANCE.
         autoImportCompletions = true,
         diagnosticMode = "openFilesOnly", -- Options: openFilesOnly, workspace
         typeCheckingMode = "off", -- Options: off, basic, strict
@@ -157,7 +157,7 @@ lspconfig.basedpyright.setup {
           reportUnusedExpression = "none",
           reportUnusedCoroutine = "none",
           reportUnusedClass = "none",
-          reportUnusedImport = "none",
+          reportUnusedImport = "information",
           reportUnusedFunction = "none",
           reportUnusedVariable = "none",
           reportUnusedCallResult = "none",
@@ -166,7 +166,7 @@ lspconfig.basedpyright.setup {
           reportConstantRedefinition = "none",
           -- reportIncompatibleMethodOverride = "error",
           -- reportMissingImports = "error",
-          -- reportUndefinedVariable = "error",
+          reportUndefinedVariable = "error",
           -- reportAssertAlwaysTrue = "error",
         },
 
