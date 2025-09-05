@@ -203,7 +203,7 @@ return {
         end, { "i", "s" }),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        -- ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+        ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         -- ["<CR>"] = cmp.mapping.confirm { select = true },
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -294,6 +294,41 @@ return {
           cmp.config.compare.offset,
           cmp.config.compare.exact,
           cmp.config.compare.score,
+        },
+      },
+    })
+
+    cmp.setup.filetype("python", {
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          -- Push snippets and text down
+          deprioritise(types.lsp.CompletionItemKind.Snippet),
+          deprioritise(types.lsp.CompletionItemKind.Text),
+
+          -- Exact matches first
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+
+          -- Use usage/locality as tie breakers
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+
+          -- Demote underscore-prefixed names
+          function(entry1, entry2)
+            local _, u1 = entry1.completion_item.label:find "^_+"
+            local _, u2 = entry2.completion_item.label:find "^_+"
+            u1, u2 = u1 or 0, u2 or 0
+            if u1 ~= u2 then
+              return u1 < u2
+            end
+          end,
+
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
         },
       },
     })
