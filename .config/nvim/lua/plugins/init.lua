@@ -53,6 +53,9 @@ return {
     opts = {
       -- q, p, d, c labels removed
       labels = "asfghjklwertuiozxvbnm",
+      highlight = {
+        backdrop = false, -- stops the screen greying out when flash is used with "s"
+      },
       modes = {
         char = {
           enabled = true,
