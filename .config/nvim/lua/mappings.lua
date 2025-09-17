@@ -137,6 +137,9 @@ map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle Inlay Hints" })
 
+-- Buffer navigation
+map("n", "<leader>b", ":b#<CR>", { desc = "Jump to Previous Buffer" })
+
 -- END OF MY MAPPINGS --
 
 -- Modified nvchad.mappings
@@ -172,11 +175,11 @@ map("n", "<leader>ld", vim.diagnostic.setloclist, { desc = "LSP diagnostic locli
 -- map("n", "<C-t>", function()
 --   require("nvchad.tabufline").next()
 -- end, { desc = "buffer goto next" })
---
+
 -- map("n", "<C-p>", function()
 --   require("nvchad.tabufline").prev()
 -- end, { desc = "buffer goto prev" })
---
+
 -- map("n", "<leader>xx", function()
 --   require("nvchad.tabufline").close_buffer()
 -- end, { desc = "buffer close" })
