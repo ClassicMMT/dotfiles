@@ -299,6 +299,20 @@ return {
     })
 
     cmp.setup.filetype("python", {
+      sources = cmp.config.sources {
+        {
+          name = "nvim_lsp",
+          -- will only show completion if 4 characters are typed:
+          -- keyword_length = 4,
+          -- filters out text sources
+          -- entry_filter = function(entry, _)
+          --   return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+          -- end,
+        },
+        { name = "buffer" },
+        { name = "luasnip" },
+        -- { name = "path" },
+      },
       sorting = {
         priority_weight = 2,
         comparators = {
