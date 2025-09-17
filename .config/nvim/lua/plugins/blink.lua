@@ -1,0 +1,78 @@
+return {
+  -- {
+  --   import = "nvchad.blink.lazyspec",
+  -- },
+  --
+  -- {
+  --   "saghen/blink.cmp",
+  --   version = "1.*",
+  --   event = { "InsertEnter", "CmdLineEnter" },
+  --   opts = function()
+  --     local base_opts = require "nvchad.blink.config"
+  --
+  --     base_opts.keymap = {
+  --       preset = "enter",
+  --       ["<CR>"] = {},
+  --       ["<Tab>"] = { "select_and_accept" },
+  --     }
+  --
+  --     base_opts.cmdline = {
+  --       keymap = { preset = "inherit" },
+  --       completion = { menu = { auto_show = true } },
+  --     }
+  --
+  --     base_opts.completion = {
+  --       ghost_text = {
+  --         enabled = true,
+  --       },
+  --       trigger = {
+  --         show_on_insert_on_trigger_character = true,
+  --         show_on_accept_on_trigger_character = false,
+  --       },
+  --     }
+  --
+  --     base_opts.fuzzy = {
+  --       -- implementation = "prefer_rust_with_warning",
+  --       implementation = "rust",
+  --     }
+  --
+  --     base_opts.sources = {
+  --       default = { "lsp", "path", "snippets", "buffer" },
+  --       providers = {
+  --         lsp = {
+  --           enabled = true,
+  --           should_show_items = true,
+  --           trigger_characters = nil,
+  --           score_offset = 1000,
+  --         },
+  --       },
+  --     }
+  --
+  --     return base_opts
+  --   end,
+  --
+  --   dependencies = {
+  --     "rafamadriz/friendly-snippets",
+  --     {
+  --       -- snippet plugin
+  --       "L3MON4D3/LuaSnip",
+  --       dependencies = "rafamadriz/friendly-snippets",
+  --       opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+  --       config = function(_, opts)
+  --         require("luasnip").config.set_config(opts)
+  --         require "nvchad.configs.luasnip"
+  --       end,
+  --     },
+  --
+  --     {
+  --       "windwp/nvim-autopairs",
+  --       opts = {
+  --         fast_wrap = {},
+  --         disable_filetype = { "telescopeprompt", "vim" },
+  --       },
+  --     },
+  --   },
+  --
+  --   opts_extend = { "sources.default" },
+  -- },
+}
