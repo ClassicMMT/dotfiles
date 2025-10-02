@@ -1,22 +1,6 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
-
--- EXAMPLE
-local servers = {
-  "html",
-  -- "cssls",
-  -- "pyright",
-  "basedpyright",
-  "ts_ls",
-  "clangd",
-  "texlab",
-  -- "ruff",
-  -- "tinymist", -- for typst
-  -- "jedi_language_server",
-}
-
 local nvlsp = require "nvchad.configs.lspconfig"
 local map = vim.keymap.set
 
@@ -29,13 +13,13 @@ nvlsp.on_attach = function(_, bufnr)
   map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
   map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
   map("n", "gi", vim.lsp.buf.implementation, opts "Go to implementation")
-  map("n", "<leader>hs", vim.lsp.buf.signature_help, opts "Show signature help")
-  map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
-  map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
+  -- map("n", "<leader>hs", vim.lsp.buf.signature_help, opts "Show signature help")
+  -- map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
+  -- map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
 
-  map("n", "<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, opts "List workspace folders")
+  -- map("n", "<leader>wl", function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, opts "List workspace folders")
 
   map("n", "<leader>gt", vim.lsp.buf.type_definition, opts "Go to type definition")
   map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
@@ -44,16 +28,32 @@ nvlsp.on_attach = function(_, bufnr)
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
 end
 
+-- servers
+local servers = {
+  "lua_ls",
+  "html",
+  -- "cssls",
+  -- "pyright",
+  "ts_ls",
+  "clangd",
+  "texlab",
+  -- "ruff",
+  -- "tinymist", -- for typst
+  -- "jedi_language_server",
+}
+
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = nvlsp.on_attach,
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
-  }
+  })
+
+  vim.lsp.enable(lsp)
 end
 
-lspconfig.emmet_ls.setup {
+vim.lsp.config("emmet_ls", {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
   filetypes = {
@@ -77,9 +77,10 @@ lspconfig.emmet_ls.setup {
       },
     },
   },
-}
+})
+vim.lsp.enable "emmet_ls"
 
-lspconfig.cssls.setup {
+vim.lsp.config("cssls", {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
@@ -88,18 +89,20 @@ lspconfig.cssls.setup {
     less = { validate = true },
     scss = { validate = true },
   },
-}
+})
+vim.lsp.enable "cssls"
 
-lspconfig.tinymist.setup {
+vim.lsp.config("tinymist", {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
   filetypes = { "typ" },
   settings = {
     formatterMode = "typstyle",
   },
-}
+})
+vim.lsp.enable "tinymist"
 
-lspconfig.ts_ls.setup {
+vim.lsp.config("ts_ls", {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
   settings = {
@@ -110,7 +113,8 @@ lspconfig.ts_ls.setup {
       autoImportFileExcludePatterns = { "node_modules", "bower_components" },
     },
   },
-}
+})
+vim.lsp.enable "ts_ls"
 
 -- configuring r language server - might need to run "install.packages('languageserver')"
 -- lspconfig.r_language_server.setup {
@@ -129,9 +133,7 @@ lspconfig.ts_ls.setup {
 --   capabilities = nvlsp.capabilities,
 -- }
 
--- this line is only needed for pyright - to deactivate import warnings
--- nvlsp.capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-lspconfig.basedpyright.setup {
+vim.lsp.config("basedpyright", {
   filetypes = { "python" },
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
@@ -157,7 +159,7 @@ lspconfig.basedpyright.setup {
           reportUnusedExpression = "none",
           reportUnusedCoroutine = "none",
           reportUnusedClass = "none",
-          reportUnusedImport = "information",
+          reportUnusedImport = "warning",
           reportUnusedFunction = "none",
           reportUnusedVariable = "none",
           reportUnusedCallResult = "none",
@@ -179,9 +181,11 @@ lspconfig.basedpyright.setup {
       },
     },
   },
-}
+})
 
-lspconfig.texlab.setup {
+vim.lsp.enable "basedpyright"
+
+vim.lsp.config("texlab", {
   filetypes = { "tex", "plaintex", "rmarkdown", "rmd" },
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
@@ -192,4 +196,5 @@ lspconfig.texlab.setup {
       forwardSearch = { executable = nil }, -- disable forward search unless needed
     },
   },
-}
+})
+vim.lsp.enable "texlab"
