@@ -29,7 +29,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
 
-      cut_key = "m",
+      cut_key = "x",
       -- keys used  by flash.nvim
       exclude = { "ns", "nS" },
     },
